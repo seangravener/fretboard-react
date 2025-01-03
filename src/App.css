@@ -1,0 +1,105 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.fretboard-container {
+  margin: 22px;
+}
+
+.fretboard {
+  display: flex;
+  gap: 0px;
+  /* padding: 20px; */
+  /* background: #f5f5f5; */
+  /* border: 2px solid #ccc; */
+  position: relative;
+  overflow: hidden;
+}
+
+.string {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 0;
+}
+
+.note-labels {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 12px;
+}
+
+.note-label {
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.note-label span {
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 1rem;
+
+}
+
+.string::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: #888;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.fret {
+  position: relative;
+  width: 48px;
+  height: 56px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.fret::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #bbb;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.string:first-child .fret::before,
+.string:last-child .fret::before {
+  width: 50%;
+}
+
+.string:first-child .fret::before {
+  left: 50%;
+}
+
+.fret.active::after {
+  content: "●";
+  position: absolute;
+  color: red;
+  font-size: 1.5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
