@@ -96,8 +96,8 @@
 .fret.active::after {
   content: "●";
   position: absolute;
-  color: red;
-  font-size: 1.5rem;
+  color: #999;
+  font-size: 3.5rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

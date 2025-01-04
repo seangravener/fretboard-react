@@ -1,4 +1,12 @@
+import { generateFretboard, highlightedFretsByString, numFrets, tuning } from './fretboard-generator';
 import { Fretboard } from './types/fretboard';
+
+
+
+// Generate the fretboard
+export const fretboardG: Fretboard = generateFretboard(tuning, numFrets, highlightedFretsByString);
+console.log(fretboardG);
+
 
 export const fretboard: Fretboard = {
   strings: [

@@ -1,62 +1,42 @@
 import "./App.css";
-import { fretboard } from "./fretboard";
+import { fretboardG as fretboard } from "./fretboard";
 
 function App() {
   return (
     <>
       <div className="fretboard-container">
         <div className="note-labels">
-          <div className="note-label"><span>E</span></div>
-          <div className="note-label"><span>A</span></div>
-          <div className="note-label"><span>D</span></div>
-          <div className="note-label"><span>G</span></div>
-          <div className="note-label"><span>B</span></div>
-          <div className="note-label"><span>e</span></div>
+          {["E", "A", "D", "G", "B", "e"].map((note) => (
+            <div className="note-label" key={note}>
+              <span>{note}</span>
+            </div>
+          ))}
         </div>
 
         <div className="fretboard">
-          <div className="string">
-            {/* <div className="note-label">E</div> */}
-            <div className="fret"></div>
-            <div className="fret active"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
-          <div className="string">
-            {/* <div className="note-label">A</div> */}
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
-          <div className="string">
-            {/* <div className="note-label">D</div> */}
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
-          <div className="string">
-            {/* <div className="note-label">G</div> */}
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
-          <div className="string">
-            {/* <div className="note-label">B</div> */}
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
-          <div className="string">
-            {/* <div className="note-label">E</div> */}
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-            <div className="fret"></div>
-          </div>
+          {fretboard.strings.map((string) => (
+            <div className="string" key={string.stringNumber}>
+              {string.frets.map((fret) => (
+                <button
+                  key={`${fret.note}-${fret.fretNumber}`}
+                  className={`fret ${fret.isHighlighted ? "active" : ""}`}
+                  aria-label="Fret"
+                >
+                  <span
+                    style={{
+                      color: "#090",
+                      zIndex: "inherit",
+                      fontWeight: "bolder",
+                      position: "relative",
+                      background: "#ccc",
+                    }}
+                  >
+                    {fret.note}
+                  </span>
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
