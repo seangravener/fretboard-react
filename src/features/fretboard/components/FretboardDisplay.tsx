@@ -1,3 +1,4 @@
+import { useFretboardContext } from "../hooks/useFretboardContext";
 import { Fretboard, FretNumber } from "../types";
 import { getStringIndicator } from "../util";
 import "./FretboardDisplay.css";
@@ -39,15 +40,16 @@ export const FretboardNoteLabels = () => {
 };
 
 export const CurrentChordDisplay = ({
-  fretboard,
   style,
 }: {
-  fretboard: Fretboard;
   style: React.CSSProperties;
 }) => {
+  const { currentNotes } = useFretboardContext();
+
   return (
     <div style={style}>
-      Current Notes: {fretboard.currentNotes?.join("/")} (okay)
+      Current Notes:{" "}
+      <code style={{ fontSize: "1rem" }}>{currentNotes?.join(" / ")}</code>
     </div>
   );
 };
@@ -59,10 +61,7 @@ export const FretboardDisplay = ({
 }: Props) => {
   return (
     <>
-      <CurrentChordDisplay
-        fretboard={fretboard}
-        style={{ marginBottom: "22px" }}
-      />
+      <CurrentChordDisplay style={{ margin: "22px" }} />
 
       <div className="fretboard-container">
         <FretboardNoteLabels />
