@@ -19,6 +19,18 @@ export const FretboardNoteLabels = () => {
   );
 };
 
+export const FretboardOpenStrings = () => {
+  return (
+    <div className="open-string-indicators">
+      {["X", "X", "O", "X", "O", "X"].map((indicator) => (
+        <div className="open-string-indicator" key={indicator}>
+          {indicator}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const FretboardDisplay = ({
   fretboard,
   options,
@@ -27,6 +39,7 @@ export const FretboardDisplay = ({
   return (
     <div className="fretboard-container">
       <FretboardNoteLabels></FretboardNoteLabels>
+      <FretboardOpenStrings></FretboardOpenStrings>
 
       <div className="fretboard">
         {fretboard.strings.map((string) => (
