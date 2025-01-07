@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { generateFretboard } from "../generators/fretboardGenerator";
-import { Fret, Fretboard, GuitarString } from "../types";
+import { Fret, Fretboard, FretNumber, GuitarString } from "../types";
 
 export const useFretboard = (initialTuning: string[], initialFrets: number) => {
   const [fretboard, setFretboard] = useState<Fretboard>(
     generateFretboard(initialTuning, initialFrets)
   );
 
-  const highlightFret = (stringNumber: number, fretNumber: number) => {
+  const highlightFret = (stringNumber: number, fretNumber: FretNumber) => {
     setFretboard((prevFretboard) => ({
+      ...prevFretboard,
       strings: prevFretboard.strings.map((string) =>
         updateString(string, stringNumber, fretNumber)
       ),
     }));
   };
+
+  const currentNotes = fretboard.strings
+    .flatMap((string) => string.frets)
+    .filter((frets) => frets.isHighlighted)
+    .map((fret) => fret.note);
+
+    console.log(currentNotes)
 
   const updateString = (
     string: GuitarString,
@@ -37,5 +45,6 @@ export const useFretboard = (initialTuning: string[], initialFrets: number) => {
   return {
     fretboard,
     highlightFret,
+    currentNotes,
   };
 };
