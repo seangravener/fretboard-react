@@ -1,3 +1,4 @@
+import { GuitarString } from "./types";
 import { CHROMATIC_SCALE } from "./constants";
 
 export const calcNoteAtFret = (
@@ -12,3 +13,9 @@ export const calcNoteAtFret = (
 
   return CHROMATIC_SCALE[(openNoteIndex + fretNumber) % CHROMATIC_SCALE.length];
 };
+
+export const isStringOpen = (string: GuitarString): boolean =>
+  !string.frets.some((fret) => fret.isHighlighted);
+
+export const getStringIndicator = (string: GuitarString): "O" | "X" =>
+  isStringOpen(string) ? "O" : "X";

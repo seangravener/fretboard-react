@@ -25,14 +25,14 @@
   gap: 0;
 }
 
-.open-string-indicators,
+.string-indicators,
 .note-labels {
   display: flex;
   justify-content: left;
   margin-bottom: 12px;
 }
 
-.open-string-indicator,
+.string-indicator,
 .note-label {
   width: 48px;
   display: flex;

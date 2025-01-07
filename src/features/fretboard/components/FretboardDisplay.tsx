@@ -1,4 +1,5 @@
 import { Fretboard } from "../types";
+import { getStringIndicator } from "../util";
 import "./FretboardDisplay.css";
 
 type Props = {
@@ -7,9 +8,25 @@ type Props = {
   onFretClick?: (stringNum: number, fretNum: number) => void;
 };
 
-interface FretboardOpenStringsProps2 {
+interface StringIndicatorsProps {
   fretboard: Fretboard;
 }
+
+export const StringIndicators = ({
+  fretboard,
+}: StringIndicatorsProps) => (
+  <div className="string-indicators" aria-label="String Indicators">
+    {fretboard.strings.map((string) => (
+      <div
+        key={`string-indicator-${string.stringNumber}`}
+        className="string-indicator"
+        data-string-number={string.stringNumber}
+      >
+        {getStringIndicator(string)}
+      </div>
+    ))}
+  </div>
+);
 
 export const FretboardNoteLabels = () => {
   return (
@@ -17,39 +34,6 @@ export const FretboardNoteLabels = () => {
       {["E", "A", "D", "G", "B", "e"].map((note) => (
         <div className="note-label" key={note}>
           <span>{note}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export const FretboardOpenStrings = () => {
-  return (
-    <div className="open-string-indicators">
-      {["X", "X", "O", "X", "O", "X"].map((indicator) => (
-        <div className="open-string-indicator" key={indicator}>
-          {indicator}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export const FretboardOpenStrings2 = ({
-  fretboard,
-}: FretboardOpenStringsProps2) => {
-  const getOpenStrings = (fretboard: Fretboard) =>
-    fretboard.strings.filter(
-      (string) => !string.frets.some((fret) => fret.isHighlighted)
-    );
-
-  const openStrings = getOpenStrings(fretboard);
-
-  return (
-    <div className="open-string-indicators">
-      {openStrings.map((string) => (
-        <div key={string.stringNumber} className="open-string-indicator">
-          O ({string.stringNumber})
         </div>
       ))}
     </div>
@@ -64,8 +48,7 @@ export const FretboardDisplay = ({
   return (
     <div className="fretboard-container">
       <FretboardNoteLabels></FretboardNoteLabels>
-      <FretboardOpenStrings></FretboardOpenStrings>
-      <FretboardOpenStrings2 fretboard={fretboard}></FretboardOpenStrings2>
+      <StringIndicators fretboard={fretboard}></StringIndicators>
 
       <div className="fretboard">
         {fretboard.strings.map((string) => (
