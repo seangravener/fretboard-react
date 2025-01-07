@@ -3,19 +3,30 @@ import "./FretboardDisplay.css";
 
 type Props = {
   fretboard: Fretboard;
+  options?: { displayNotes: boolean };
   onFretClick?: (stringNum: number, fretNum: number) => void;
 };
 
-export const FretboardDisplay = ({ fretboard, onFretClick }: Props) => {
+export const FretboardNoteLabels = () => {
+  return (
+    <div className="note-labels">
+      {["E", "A", "D", "G", "B", "e"].map((note) => (
+        <div className="note-label" key={note}>
+          <span>{note}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const FretboardDisplay = ({
+  fretboard,
+  options,
+  onFretClick,
+}: Props) => {
   return (
     <div className="fretboard-container">
-      <div className="note-labels">
-        {["E", "A", "D", "G", "B", "e"].map((note) => (
-          <div className="note-label" key={note}>
-            <span>{note}</span>
-          </div>
-        ))}
-      </div>
+      <FretboardNoteLabels></FretboardNoteLabels>
 
       <div className="fretboard">
         {fretboard.strings.map((string) => (
@@ -31,7 +42,7 @@ export const FretboardDisplay = ({ fretboard, onFretClick }: Props) => {
                     : ""
                 }
               >
-                <span>{fret.note}</span>
+                {options?.displayNotes ? <span>{fret.note}</span> : ""}
               </button>
             ))}
           </div>
