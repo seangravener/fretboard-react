@@ -21,8 +21,6 @@ export const useFretboard = (initialTuning: string[], initialFrets: number) => {
     .filter((frets) => frets.isHighlighted)
     .map((fret) => fret.note);
 
-    console.log(currentNotes)
-
   const updateString = (
     string: GuitarString,
     stringNumber: number,

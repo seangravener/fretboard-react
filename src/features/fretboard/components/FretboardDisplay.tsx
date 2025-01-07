@@ -9,11 +9,7 @@ type Props = {
   onFretClick?: (stringNum: number, fretNum: FretNumber) => void;
 };
 
-interface StringIndicatorsProps {
-  fretboard: Fretboard;
-}
-
-export const StringIndicators = ({ fretboard }: StringIndicatorsProps) => (
+export const StringIndicators = ({ fretboard }: { fretboard: Fretboard }) => (
   <div className="string-indicators" aria-label="String Indicators">
     {fretboard.strings.map((string) => (
       <div

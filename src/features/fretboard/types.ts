@@ -21,3 +21,16 @@ export type Fretboard = {
   strings: GuitarString[];
   currentNotes: ChromaticNote[];
 };
+
+export type Chord = {
+  name: string;
+  root: ChromaticNote;
+  quality: string;
+};
+
+export type FretboardContextType = {
+  fretboard: Fretboard;
+  highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
+  currentNotes: ChromaticNote[];
+  currentChord: Chord | null;
+};
