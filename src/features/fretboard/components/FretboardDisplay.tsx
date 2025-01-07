@@ -1,11 +1,11 @@
-import { Fretboard } from "../types";
+import { Fretboard, FretNumber } from "../types";
 import { getStringIndicator } from "../util";
 import "./FretboardDisplay.css";
 
 type Props = {
   fretboard: Fretboard;
   options?: { displayNotes: boolean };
-  onFretClick?: (stringNum: number, fretNum: number) => void;
+  onFretClick?: (stringNum: number, fretNum: FretNumber) => void;
 };
 
 interface StringIndicatorsProps {
@@ -45,7 +45,11 @@ export const CurrentChordDisplay = ({
   fretboard: Fretboard;
   style: React.CSSProperties;
 }) => {
-  return <div style={style}>Current Notes: {fretboard.currentNotes?.join('/')} (okay)</div>;
+  return (
+    <div style={style}>
+      Current Notes: {fretboard.currentNotes?.join("/")} (okay)
+    </div>
+  );
 };
 
 export const FretboardDisplay = ({
