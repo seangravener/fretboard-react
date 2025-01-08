@@ -1,9 +1,9 @@
-import { GuitarString } from "./types";
+import { FretNumber, GuitarString } from "./types";
 import { CHROMATIC_SCALE } from "./constants";
 
 export const calcNoteAtFret = (
   openNote: string,
-  fretNumber: number
+  fretNumber: FretNumber
 ): string => {
   const openNoteIndex = CHROMATIC_SCALE.indexOf(openNote);
 
@@ -11,7 +11,10 @@ export const calcNoteAtFret = (
     throw new Error(`Invalid note: ${openNote}`);
   }
 
-  return CHROMATIC_SCALE[(openNoteIndex + fretNumber) % CHROMATIC_SCALE.length];
+  const calculatedNote =
+    CHROMATIC_SCALE[(openNoteIndex + fretNumber) % CHROMATIC_SCALE.length];
+
+  return calculatedNote;
 };
 
 export const isStringOpen = (string: GuitarString): boolean =>

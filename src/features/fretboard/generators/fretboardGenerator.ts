@@ -1,31 +1,44 @@
-import { Fret, Fretboard, GuitarString } from "../types";
+import {
+  Fret,
+  Fretboard,
+  FretNumber,
+  GuitarString,
+  StringNumber,
+} from "../types";
 import { calcNoteAtFret } from "../util";
 
 export const generateString = (
-  stringNumber: number,
+  stringNumber: StringNumber,
   openNote: string,
-  numFrets: number,
+  numFrets: FretNumber,
   highlightedFrets: number[] = []
 ): GuitarString => {
-  const createFret = (_: string, fretNumber: number) => ({
-    fretNumber,
-    isHighlighted: highlightedFrets.includes(fretNumber),
-    note: calcNoteAtFret(openNote, fretNumber),
+  const createFret = (_: undefined, index: number): Fret => ({
+    fretNumber: index as FretNumber,
+    isHighlighted: highlightedFrets.includes(index as FretNumber),
+    note: calcNoteAtFret(openNote, index as FretNumber),
   });
+
   const frets: Fret[] = Array.from({ length: numFrets + 1 }, createFret);
 
-  return { stringNumber, openNote, frets };
+  return {
+    stringNumber,
+    openNote,
+    isOpen: highlightedFrets.includes(0 as FretNumber),
+    frets,
+  };
 };
 
 export const generateFretboard = (
   tuning: string[],
-  numFrets: number,
+  numFrets: FretNumber,
   highlightedFretsByString: number[][] = []
 ): Fretboard => {
   return {
+    currentNotes: [],
     strings: tuning.map((openNote, index) =>
       generateString(
-        index + 1,
+        (index + 1) as StringNumber,
         openNote,
         numFrets,
         highlightedFretsByString[index] || []

@@ -1,13 +1,25 @@
 import { useState } from "react";
 import { generateFretboard } from "../generators/fretboardGenerator";
-import { Fret, Fretboard, FretNumber, GuitarString } from "../types";
+import {
+  Fret,
+  Fretboard,
+  FretNumber,
+  GuitarString,
+  StringNumber,
+} from "../types";
 
-export const useFretboard = (initialTuning: string[], initialFrets: number) => {
+export const useFretboard = (
+  initialTuning: string[],
+  initialFrets: FretNumber
+) => {
   const [fretboard, setFretboard] = useState<Fretboard>(
     generateFretboard(initialTuning, initialFrets)
   );
 
-  const highlightFret = (stringNumber: number, fretNumber: FretNumber) => {
+  const highlightFret = (
+    stringNumber: StringNumber,
+    fretNumber: FretNumber
+  ) => {
     setFretboard((prevFretboard) => ({
       ...prevFretboard,
       strings: prevFretboard.strings.map((string) =>
@@ -35,8 +47,10 @@ export const useFretboard = (initialTuning: string[], initialFrets: number) => {
           : fret.isHighlighted,
     });
 
+    console.log(fretNumber, "fretNumber")
+
     return shouldUpdateString
-      ? { ...string, frets: string.frets.map(toggleFretHighlight) }
+      ? { ...string, isOpen: fretNumber === 0, frets: string.frets.map(toggleFretHighlight) }
       : string;
   };
 

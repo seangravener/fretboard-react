@@ -1,12 +1,12 @@
 import { useFretboardContext } from "../hooks/useFretboardContext";
-import { Fretboard, FretNumber } from "../types";
+import { Fretboard, FretNumber, StringNumber } from "../types";
 import { getStringIndicator } from "../util";
 import "./FretboardDisplay.css";
 
 type Props = {
   fretboard: Fretboard;
   options?: { displayNotes: boolean };
-  onFretClick?: (stringNum: number, fretNum: FretNumber) => void;
+  onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
 export const StringIndicators = ({ fretboard }: { fretboard: Fretboard }) => (
@@ -66,15 +66,13 @@ export const FretboardDisplay = ({
         <div className="fretboard">
           {fretboard.strings.map((string) => (
             <div className="string" key={string.stringNumber}>
-              {string.frets.map((fret) => (
+              {string.frets.slice(1).map((fret) => (
                 <button
                   key={`${fret.note}-${fret.fretNumber}`}
                   className={`fret ${fret.isHighlighted ? "active" : ""}`}
                   aria-label="Fret"
                   onClick={() =>
-                    onFretClick
-                      ? onFretClick(string.stringNumber, fret.fretNumber)
-                      : undefined
+                    onFretClick?.(string.stringNumber, fret.fretNumber)
                   }
                 >
                   {options?.displayNotes ? <span>{fret.note}</span> : null}

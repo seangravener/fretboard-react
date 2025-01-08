@@ -14,6 +14,7 @@ export type Fret = {
 export type GuitarString = {
   stringNumber: StringNumber;
   openNote: ChromaticNote;
+  isOpen: boolean;
   frets: Fret[];
 };
 

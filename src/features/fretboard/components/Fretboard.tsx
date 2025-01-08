@@ -5,6 +5,8 @@ import { FretboardDisplay } from "./FretboardDisplay";
 export const Fretboard = () => {
   const { fretboard, highlightFret } = useFretboardContext();
 
+  console.log(fretboard)
+
   return (
     <>
       <ChordDisplay />
