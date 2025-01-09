@@ -41,7 +41,7 @@ export const generateFretboard = (
         (index + 1) as StringNumber,
         openNote,
         numFrets,
-        highlightedFretsByString[index] || []
+        highlightedFretsByString[index + 1] || []
       )
     ),
   };

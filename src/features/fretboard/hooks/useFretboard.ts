@@ -47,10 +47,12 @@ export const useFretboard = (
           : fret.isHighlighted,
     });
 
-    console.log(fretNumber, "fretNumber")
-
     return shouldUpdateString
-      ? { ...string, isOpen: fretNumber === 0, frets: string.frets.map(toggleFretHighlight) }
+      ? {
+          ...string,
+          isOpen: fretNumber === 0,
+          frets: string.frets.map(toggleFretHighlight),
+        }
       : string;
   };
 

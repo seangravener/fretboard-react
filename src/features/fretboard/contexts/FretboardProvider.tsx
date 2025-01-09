@@ -3,7 +3,6 @@ import { useFretboard } from "../hooks/useFretboard";
 import { DEFAULT_FRETS, DEFAULT_TUNING } from "../constants";
 import { FretboardContext } from "./FretboardContext";
 import { identifyChord } from "../utils/chordIdentifier";
-import { Chord } from "../types";
 
 export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   const { fretboard, highlightFret, currentNotes } = useFretboard(

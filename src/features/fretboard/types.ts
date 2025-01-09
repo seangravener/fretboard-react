@@ -33,5 +33,5 @@ export type FretboardContextType = {
   fretboard: Fretboard;
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
   currentNotes: ChromaticNote[];
-  currentChord: Chord | null;
+  currentChord: Chord | string | null;
 };
