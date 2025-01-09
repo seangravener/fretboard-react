@@ -3,13 +3,14 @@ import { useFretboard } from "../hooks/useFretboard";
 import { DEFAULT_FRETS, DEFAULT_TUNING } from "../constants";
 import { FretboardContext } from "./FretboardContext";
 import { identifyChord } from "../utils/chordIdentifier";
+import { Chord } from "../types";
 
 export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   const { fretboard, highlightFret, currentNotes } = useFretboard(
     DEFAULT_TUNING,
     DEFAULT_FRETS
   );
-  const currentChord: Chord = identifyChord(fretboard.strings);
+  const currentChord: string = identifyChord(fretboard.strings);
 
   const contextValue = useMemo(
     () => ({

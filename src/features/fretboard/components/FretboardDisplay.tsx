@@ -9,16 +9,22 @@ type Props = {
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
-export const StringIndicators = ({ fretboard }: { fretboard: Fretboard }) => (
+export const StringIndicators = ({
+  fretboard,
+  options,
+  onFretClick,
+}: Props) => (
   <div className="string-indicators" aria-label="String Indicators">
     {fretboard.strings.map((string) => (
-      <div
+      <button
         key={`string-indicator-${string.stringNumber}`}
         className="string-indicator"
         data-string-number={string.stringNumber}
+        onClick={() => onFretClick?.(string.stringNumber, 0 as FretNumber)}
+        title={options?.displayNotes ? string.openNote : ""}
       >
         {getStringIndicator(string)}
-      </div>
+      </button>
     ))}
   </div>
 );
@@ -61,7 +67,8 @@ export const FretboardDisplay = ({
 
       <div className="fretboard-container">
         <FretboardNoteLabels />
-        <StringIndicators fretboard={fretboard} />
+
+        <StringIndicators onFretClick={onFretClick} fretboard={fretboard} />
 
         <div className="fretboard">
           {fretboard.strings.map((string) => (
