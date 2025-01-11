@@ -21,6 +21,8 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
     [fretboard, highlightFret, currentNotes, currentChord]
   );
 
+  console.log("contextValue", contextValue);
+
   return (
     <FretboardContext.Provider value={contextValue}>
       {children}

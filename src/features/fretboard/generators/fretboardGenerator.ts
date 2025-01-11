@@ -15,7 +15,11 @@ export const generateString = (
 ): GuitarString => {
   const createFret = (_: undefined, index: number): Fret => ({
     fretNumber: index as FretNumber,
-    isHighlighted: highlightedFrets.includes(index as FretNumber),
+
+    // handle fret 0 here. if fret 0 is highlighted, no other frets can be
+    isHighlighted:
+      highlightedFrets.includes(index as FretNumber) &&
+      highlightedFrets.length === 1,
     note: calcNoteAtFret(openNote, index as FretNumber),
   });
 
@@ -26,7 +30,8 @@ export const generateString = (
     openNote,
     isOpen:
       highlightedFrets.length === 0 ||
-      highlightedFrets.includes(0 as FretNumber),
+      (highlightedFrets.includes(0 as FretNumber) &&
+        highlightedFrets.length === 1),
     frets,
   };
 };

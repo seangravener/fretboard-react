@@ -25,14 +25,14 @@ export const useFretboard = (
       strings: prevFretboard.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
-        // Check if any frets are highlighted on this string
-        const hasHighlightedFrets = string.frets.some(
-          (fret) => fret.fretNumber !== fretNumber && fret.isHighlighted
+        const highlightedFrets = string.frets.filter(
+          (fret) => fret.isHighlighted
         );
 
         return {
           ...string,
-          isOpen: !hasHighlightedFrets && fretNumber === (0 as FretNumber),
+          isOpen:
+            !string.frets[0].isHighlighted && highlightedFrets.length === 1,
           frets: string.frets.map((fret) => ({
             ...fret,
             isHighlighted:
