@@ -22,9 +22,26 @@ export const useFretboard = (
   ) => {
     setFretboard((prevFretboard) => ({
       ...prevFretboard,
-      strings: prevFretboard.strings.map((string) =>
-        updateString(string, stringNumber, fretNumber)
-      ),
+      strings: prevFretboard.strings.map((string) => {
+        if (string.stringNumber !== stringNumber) return string;
+
+        // Check if any frets are highlighted on this string
+        const hasHighlightedFrets = string.frets.some(
+          (fret) => fret.fretNumber !== fretNumber && fret.isHighlighted
+        );
+
+        return {
+          ...string,
+          isOpen: !hasHighlightedFrets && fretNumber === (0 as FretNumber),
+          frets: string.frets.map((fret) => ({
+            ...fret,
+            isHighlighted:
+              fret.fretNumber === fretNumber
+                ? !fret.isHighlighted
+                : fret.isHighlighted,
+          })),
+        };
+      }),
     }));
   };
 
@@ -32,29 +49,6 @@ export const useFretboard = (
     .flatMap((string) => string.frets)
     .filter((frets) => frets.isHighlighted)
     .map((fret) => fret.note);
-
-  const updateString = (
-    string: GuitarString,
-    stringNumber: number,
-    fretNumber: number
-  ) => {
-    const shouldUpdateString = string.stringNumber === stringNumber;
-    const toggleFretHighlight = (fret: Fret) => ({
-      ...fret,
-      isHighlighted:
-        fret.fretNumber === fretNumber
-          ? !fret.isHighlighted
-          : fret.isHighlighted,
-    });
-
-    return shouldUpdateString
-      ? {
-          ...string,
-          isOpen: fretNumber === 0,
-          frets: string.frets.map(toggleFretHighlight),
-        }
-      : string;
-  };
 
   return {
     fretboard,

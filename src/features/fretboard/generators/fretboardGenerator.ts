@@ -24,7 +24,9 @@ export const generateString = (
   return {
     stringNumber,
     openNote,
-    isOpen: highlightedFrets.includes(0 as FretNumber),
+    isOpen:
+      highlightedFrets.length === 0 ||
+      highlightedFrets.includes(0 as FretNumber),
     frets,
   };
 };
