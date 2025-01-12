@@ -30,8 +30,7 @@ export const generateString = (
     openNote,
     isOpen:
       highlightedFrets.length === 0 ||
-      (highlightedFrets.includes(0 as FretNumber) &&
-        highlightedFrets.length === 1),
+      (highlightedFrets.includes(0) && highlightedFrets.length === 1),
     frets,
   };
 };

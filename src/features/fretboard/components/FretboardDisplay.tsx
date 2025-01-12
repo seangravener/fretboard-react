@@ -20,7 +20,7 @@ export const StringIndicators = ({
         key={`string-indicator-${string.stringNumber}`}
         className="string-indicator"
         data-string-number={string.stringNumber}
-        onClick={() => onFretClick?.(string.stringNumber, 0 as FretNumber)}
+        onClick={() => onFretClick?.(string.stringNumber, 0)}
         title={options?.displayNotes ? string.openNote : ""}
       >
         {getStringIndicator(string)}
