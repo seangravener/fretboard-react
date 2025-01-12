@@ -41,7 +41,7 @@ export const generateFretboard = (
   highlightedFretsByString: number[][] = []
 ): Fretboard => {
   return {
-    currentNotes: [],
+    currentNotes: [], // a) remove or b) calculate value
     strings: tuning.map((openNote, index) =>
       generateString(
         (index + 1) as StringNumber,

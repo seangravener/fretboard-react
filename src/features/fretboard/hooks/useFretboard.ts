@@ -25,19 +25,44 @@ export const useFretboard = (
       strings: prevFretboard.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
-        const highlightedFrets = string.frets.filter(
-          (fret) => fret.isHighlighted
-        );
+        const currentFrets = string.frets.map((fret) => fret.isHighlighted);
+        const isFret0 = fretNumber === 0;
+
+        // Handle fret 0 (explicit muting) logic
+        if (isFret0) {
+          return {
+            ...string,
+            isOpen: !string.frets[0].isHighlighted,
+            frets: string.frets.map((fret) => ({
+              ...fret,
+              isHighlighted:
+                fret.fretNumber === 0 ? !fret.isHighlighted : false,
+            })),
+          };
+        }
+
+        // Handle regular fret highlighting
+        const updatedFrets = string.frets.map((fret) => ({
+          ...fret,
+          isHighlighted:
+            fret.fretNumber === fretNumber
+              ? !fret.isHighlighted
+              : fret.isHighlighted,
+        }));
+
+        // Check if all frets except 0 are not highlighted
+        const hasNoHighlightedFrets = updatedFrets
+          .slice(1)
+          .every((fret) => !fret.isHighlighted);
 
         return {
           ...string,
-          isOpen:
-            !string.frets[0].isHighlighted && highlightedFrets.length === 1,
-          frets: string.frets.map((fret) => ({
+          isOpen: hasNoHighlightedFrets,
+          frets: updatedFrets.map((fret) => ({
             ...fret,
             isHighlighted:
-              fret.fretNumber === fretNumber
-                ? !fret.isHighlighted
+              fret.fretNumber === 0
+                ? !hasNoHighlightedFrets
                 : fret.isHighlighted,
           })),
         };
@@ -47,7 +72,10 @@ export const useFretboard = (
 
   const currentNotes = fretboard.strings
     .flatMap((string) => string.frets)
-    .filter((frets) => frets.isHighlighted)
+    .filter((fret) =>
+      fret.fretNumber !== 0 ? fret.isHighlighted : !fret.isHighlighted
+    )
+    // .filter((fret) => fret.isHighlighted)
     .map((fret) => fret.note);
 
   return {
