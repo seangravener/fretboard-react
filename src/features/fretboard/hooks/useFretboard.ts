@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { generateFretboard } from "../generators/fretboardGenerator";
 import {
-  Fret,
   Fretboard,
   FretNumber,
-  GuitarString,
   StringNumber,
 } from "../types";
 
@@ -70,17 +68,35 @@ export const useFretboard = (
     }));
   };
 
+  // To implement this approach:
+  
+  // Initialize fret[0].isHighlighted = true for open strings
+  // Set fret[0].isHighlighted = false when muting
+  // Update the string.isOpen property based on this convention
+  // This would make the state management more straightforward and reduce the need for condition inversions throughout the code. The mental model becomes:
+
+  // Highlighted = active/playing
+  // Not highlighted = inactive/muted
+  const activeFrets = fretboard.strings.map((currString) => {
+    // string is mute d;
+    if (!currString.frets[0].isHighlighted && currString.frets.length === 1) {
+      return undefined;
+    }
+
+    return currString.frets.filter((fret) => fret.isHighlighted).at(-1);
+  });
+
   const currentNotes = fretboard.strings
     .flatMap((string) => string.frets)
     .filter((fret) =>
       fret.fretNumber !== 0 ? fret.isHighlighted : !fret.isHighlighted
     )
-    // .filter((fret) => fret.isHighlighted)
     .map((fret) => fret.note);
 
   return {
     fretboard,
     highlightFret,
     currentNotes,
+    activeFrets,
   };
 };

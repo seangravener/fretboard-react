@@ -16,7 +16,6 @@ export const generateString = (
   const createFret = (_: undefined, index: number): Fret => ({
     fretNumber: index as FretNumber,
 
-    // handle fret 0 here. if fret 0 is highlighted, no other frets can be
     isHighlighted:
       highlightedFrets.includes(index as FretNumber) &&
       highlightedFrets.length === 1,

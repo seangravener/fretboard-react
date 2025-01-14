@@ -5,11 +5,13 @@ import { FretboardContext } from "./FretboardContext";
 import { identifyChord } from "../utils/chordIdentifier";
 
 export const FretboardProvider = ({ children }: { children: ReactNode }) => {
-  const { fretboard, highlightFret, currentNotes } = useFretboard(
+  const { fretboard, highlightFret, currentNotes, activeFrets } = useFretboard(
     DEFAULT_TUNING,
     DEFAULT_FRETS
   );
   const currentChord: string = identifyChord(fretboard.strings);
+
+  console.log("activeFrets", activeFrets);
 
   const contextValue = useMemo(
     () => ({
