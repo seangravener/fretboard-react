@@ -27,6 +27,8 @@ export const generateString = (
   return {
     stringNumber,
     openNote,
+    
+    // @TODO remove; access via string.frets[0] 
     isOpen:
       highlightedFrets.length === 0 ||
       (highlightedFrets.includes(0) && highlightedFrets.length === 1),
@@ -40,7 +42,9 @@ export const generateFretboard = (
   highlightedFretsByString: number[][] = []
 ): Fretboard => {
   return {
-    currentNotes: [], // a) remove or b) calculate value
+   
+    // @TODO a) remove and relocate to it's own "service"
+    currentNotes: [], 
     strings: tuning.map((openNote, index) =>
       generateString(
         (index + 1) as StringNumber,
