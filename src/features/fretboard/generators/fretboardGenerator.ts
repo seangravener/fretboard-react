@@ -52,7 +52,7 @@ export const generateFretboard = (
         numFrets,
         highlightedFretsByString[index + 1] || []
       )
-    ),
+    ),``
   };
 };
 
