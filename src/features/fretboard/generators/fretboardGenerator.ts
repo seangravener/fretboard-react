@@ -5,7 +5,7 @@ import {
   GuitarString,
   StringNumber,
 } from "../types";
-import { calcNoteAtFret } from "../util";
+import { calcNoteAtFret, isStringOpen } from "../util";
 
 export const generateString = (
   stringNumber: StringNumber,
@@ -16,9 +16,9 @@ export const generateString = (
   const createFret = (_: undefined, index: number): Fret => ({
     fretNumber: index as FretNumber,
 
-    isHighlighted:
-      highlightedFrets.includes(index as FretNumber) &&
-      highlightedFrets.length === 1,
+    // Muted: (frets[0].isHighlighted === false)
+    // Open String: (frets[0].isHighlighted === true)
+    isHighlighted: highlightedFrets.includes(index as FretNumber),
     note: calcNoteAtFret(openNote, index as FretNumber),
   });
 
@@ -27,9 +27,7 @@ export const generateString = (
   return {
     stringNumber,
     openNote,
-    isOpen:
-      highlightedFrets.length === 0 ||
-      (highlightedFrets.includes(0) && highlightedFrets.length === 1),
+    isOpen: frets[0].isHighlighted,
     frets,
   };
 };

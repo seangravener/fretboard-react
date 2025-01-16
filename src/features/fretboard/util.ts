@@ -18,11 +18,9 @@ export const calcNoteAtFret = (
 };
 
 export const isStringOpen = (string: GuitarString): boolean => {
-  const highlightedFrets = string.frets.map((fret) => fret.isHighlighted);
-  const isMuted =
-    string.frets[0].isHighlighted && highlightedFrets.length === 1;
-
-  return isMuted || !string.frets.some((fret) => fret.isHighlighted);
+  return string.frets.some(
+    (fret) => fret.fretNumber === 0 && fret.isHighlighted
+  );
 };
 
 export const getStringIndicator = (string: GuitarString): "O" | "X" =>

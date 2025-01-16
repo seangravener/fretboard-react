@@ -23,6 +23,7 @@ export const StringIndicators = ({
         onClick={() => onFretClick?.(string.stringNumber, 0)}
         title={options?.displayNotes ? string.openNote : ""}
       >
+        {string.frets.map(fret => fret.isHighlighted).join(' ')}
         {getStringIndicator(string)}
       </button>
     ))}
