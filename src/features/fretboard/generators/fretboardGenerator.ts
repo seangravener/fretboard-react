@@ -4,6 +4,7 @@ import {
   FretNumber,
   GuitarString,
   StringNumber,
+  Tuning,
 } from "../types";
 import { calcNoteAtFret, isStringOpen } from "../util";
 
@@ -33,7 +34,7 @@ export const generateString = (
 };
 
 export const generateFretboard = (
-  tuning: string[],
+  tuning: Tuning,
   numFrets: FretNumber,
   highlightedFretsByString: number[][] = []
 ): Fretboard => {

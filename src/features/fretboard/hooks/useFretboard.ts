@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { generateFretboard } from "../generators/fretboardGenerator";
-import { Fretboard, FretNumber, StringNumber } from "../types";
+import { Fretboard, FretNumber, StringNumber, Tuning } from "../types";
+import { INITIAL_HIGHLIGHTED_FRETS } from "../constants";
 
 export const useFretboard = (
-  initialTuning: string[],
+  initialTuning: Tuning,
   initialFrets: FretNumber
 ) => {
   const [fretboard, setFretboard] = useState<Fretboard>(() => {
-    const defaultOpenFrets = [[0], [0], [0], [0], [0], [0]];
+    const defaultOpenFrets = INITIAL_HIGHLIGHTED_FRETS;
     return generateFretboard(initialTuning, initialFrets, defaultOpenFrets);
   });
 
@@ -37,13 +38,6 @@ export const useFretboard = (
       }),
     }));
   };
-
-  // To implement this approach:
-
-  // Initialize fret[0].isHighlighted = true for open strings
-  // Set fret[0].isHighlighted = false when muting
-  // Update the string.isOpen property based on this convention
-  // This would make the state management more straightforward and reduce the need for condition inversions throughout the code. The mental model becomes:
 
   // Highlighted = active/playing
   // Not highlighted = inactive/muted
