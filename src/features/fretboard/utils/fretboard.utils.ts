@@ -1,5 +1,11 @@
 import { CHROMATIC_SCALE } from "../constants";
-import { ChromaticNote, Fret, Fretboard, FretNumber } from "../types";
+import {
+  ChromaticNote,
+  Fret,
+  Fretboard,
+  FretboardString,
+  FretNumber,
+} from "../types";
 
 export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
   return fretboard.strings.flatMap((string) =>
@@ -35,3 +41,12 @@ export const calcNoteAtFret = (
 
   return calculatedNote;
 };
+
+export const isStringOpen = (string: FretboardString): boolean => {
+  return string.frets.some(
+    (fret) => fret.fretNumber === 0 && fret.isHighlighted
+  );
+};
+
+export const getStringIndicator = (string: FretboardString): "O" | "X" =>
+  isStringOpen(string) ? "O" : "X";
