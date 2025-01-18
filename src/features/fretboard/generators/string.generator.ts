@@ -1,4 +1,4 @@
-import { Fret, FretNumber, GuitarString, StringNumber } from "../types";
+import { Fret, FretNumber, FretboardString, StringNumber } from "../types";
 import { generateFrets } from "./frets.generator";
 
 // Highlighted = open/active/playing
@@ -9,7 +9,7 @@ export const generateString = (
   openNote: string,
   numFrets: FretNumber,
   highlightedFret: FretNumber
-): GuitarString => {
+): FretboardString => {
   const frets: Fret[] = generateFrets(numFrets, openNote, highlightedFret);
 
   return {

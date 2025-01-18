@@ -1,5 +1,5 @@
 import { CHROMATIC_SCALE } from "../constants";
-import { GuitarString } from "../types";
+import { FretboardString } from "../types";
 
 type ChordPattern = {
   name: string;
@@ -53,7 +53,7 @@ const intervalsMatch = (intervals: number[], pattern: number[]): boolean => {
   return intervals.every((interval, i) => interval === pattern[i]);
 };
 
-const identifyGuitarShape = (strings: GuitarString[]): string => {
+const identifyGuitarShape = (strings: FretboardString[]): string => {
   const currentShape = strings.map(
     (string) =>
       string.frets.find((fret) => fret.isHighlighted)?.fretNumber ?? -1
@@ -66,7 +66,7 @@ const identifyGuitarShape = (strings: GuitarString[]): string => {
   return matchedChord?.name ?? "";
 };
 
-const identifyByIntervals = (strings: GuitarString[]): string => {
+const identifyByIntervals = (strings: FretboardString[]): string => {
   const highlightedNotes = strings.flatMap((string) =>
     string.frets.filter((fret) => fret.isHighlighted).map((fret) => fret.note)
   );
@@ -82,7 +82,7 @@ const identifyByIntervals = (strings: GuitarString[]): string => {
   return `${highlightedNotes[0]}${matchedPattern.name}`;
 };
 
-export const identifyChord = (strings: GuitarString[]): string => {
+export const identifyChord = (strings: FretboardString[]): string => {
   const guitarShape = identifyGuitarShape(strings);
 
   if (guitarShape) return guitarShape;

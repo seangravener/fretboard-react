@@ -6,7 +6,7 @@ export type FretNumber = (typeof FRET_NUMBERS)[number];
 export type StringNumber = (typeof STRING_NUMBERS)[number];
 
 export type Fretboard = {
-  strings: GuitarString[];
+  strings: FretboardString[];
 };
 
 export type Fret = {
@@ -15,8 +15,7 @@ export type Fret = {
   note: ChromaticNote;
 };
 
-// @TODO rename to FretboardString
-export type GuitarString = {
+export type FretboardString = {
   stringNumber: StringNumber;
   openNote: ChromaticNote;
   frets: Fret[];
