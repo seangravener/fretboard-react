@@ -5,6 +5,10 @@ export type ChromaticNote = (typeof CHROMATIC_SCALE)[number];
 export type FretNumber = (typeof FRET_NUMBERS)[number];
 export type StringNumber = (typeof STRING_NUMBERS)[number];
 
+export type Fretboard = {
+  strings: GuitarString[];
+};
+
 export type Fret = {
   fretNumber: FretNumber;
   isHighlighted: boolean;
@@ -16,10 +20,6 @@ export type GuitarString = {
   stringNumber: StringNumber;
   openNote: ChromaticNote;
   frets: Fret[];
-};
-
-export type Fretboard = {
-  strings: GuitarString[];
 };
 
 export type Chord = {

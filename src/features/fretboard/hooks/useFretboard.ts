@@ -29,6 +29,7 @@ export const useFretboard = (
           (fret) => fret.isHighlighted
         );
 
+        // @TODO Toggle string open/muted state back to previous, unfretted state
         if (hasNoHighlightedFrets && fretNumber !== 0) {
           updatedFrets[0].isHighlighted = !string.frets[0].isHighlighted;
         }
