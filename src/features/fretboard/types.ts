@@ -15,7 +15,6 @@ export type Fret = {
 export type GuitarString = {
   stringNumber: StringNumber;
   openNote: ChromaticNote;
-  isOpen: boolean;
   frets: Fret[];
 };
 
@@ -36,12 +35,11 @@ export type FretboardContextType = {
   currentChord: Chord | string | null;
 };
 
-// @TODO Flatten matrix array (unnecessary matrix)
-export type FretPositionMatrix = [
-  [number],
-  [number],
-  [number],
-  [number],
-  [number],
-  [number]
+export type FretPositions = [
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber
 ];

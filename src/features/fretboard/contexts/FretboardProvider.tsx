@@ -12,8 +12,6 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   );
   const currentNotes = getCurrentNotes(fretboard);
   const activeFrets = getActiveFrets(fretboard);
-
-  // move ident func to generator; accept whole fretboard as param
   const currentChord: string = identifyChord(fretboard.strings);
 
   const contextValue = useMemo(

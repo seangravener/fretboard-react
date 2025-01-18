@@ -1,8 +1,8 @@
-import { FretPositionMatrix, Tuning } from "./types";
+import { FretPositions, Tuning } from "./types";
 
 export const INITIAL_FRETS = 6;
 export const INITIAL_TUNING: Tuning = ["E", "A", "D", "G", "B", "E"];
-export const INITIAL_HIGHLIGHTED_FRETS: FretPositionMatrix = [[0], [0], [0], [0], [0], [0]]; // prettier-ignore
+export const INITIAL_HIGHLIGHTED_FRETS: FretPositions = [0, 0, 0, 0, 0, 0]; // prettier-ignore
 export const CHROMATIC_SCALE = [ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]; // prettier-ignore
 
 export const STRING_NUMBERS = [1, 2, 3, 4, 5, 6] as const;

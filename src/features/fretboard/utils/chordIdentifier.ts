@@ -88,22 +88,3 @@ export const identifyChord = (strings: GuitarString[]): string => {
   if (guitarShape) return guitarShape;
   return identifyByIntervals(strings);
 };
-
-// export const identifyChord = (strings: GuitarString[]): string => {
-//   const highlightedNotes = strings
-//     .flatMap((fret) => fret.frets)
-//     .filter((fret) => fret.isHighlighted)
-//     .map((fret) => fret.note);
-
-//   if (highlightedNotes.length > 3) return "";
-
-//   const intervals = getIntervals(highlightedNotes);
-
-//   const matchedPattern = CHORD_PATTERNS.find((pattern) =>
-//     intervalsMatch(intervals, pattern.intervals)
-//   );
-
-//   if (!matchedPattern) return "";
-
-//   return `${highlightedNotes[0]}${matchedPattern.name}`;
-// };

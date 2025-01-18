@@ -8,14 +8,13 @@ export const generateString = (
   stringNumber: StringNumber,
   openNote: string,
   numFrets: FretNumber,
-  highlightedFrets: FretNumber[] = []
+  highlightedFret: FretNumber
 ): GuitarString => {
-  const frets: Fret[] = generateFrets(numFrets, openNote, highlightedFrets);
+  const frets: Fret[] = generateFrets(numFrets, openNote, highlightedFret);
 
   return {
     stringNumber,
     openNote,
     frets,
-    isOpen: frets[0].isHighlighted, // redundant?
   };
 };
