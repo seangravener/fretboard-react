@@ -1,28 +1,26 @@
-import { Fretboard, FretNumber, StringNumber } from "../../types";
+import { useFretboardContext } from "../../hooks/useFretboardContext";
 import { getStringIndicator } from "../../utils/fretboard.utils";
 
-type Props = {
-  fretboard: Fretboard;
-  options?: { displayNotes: boolean };
-  onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
+type StringIndicatorsProps = {
+  displayNotes: boolean;
 };
 
-export const StringIndicators = ({
-  fretboard,
-  options,
-  onFretClick,
-}: Props) => (
-  <div className="string-indicators" aria-label="String Indicators">
-    {fretboard.strings.map((string) => (
-      <button
-        key={`string-indicator-${string.stringNumber}`}
-        className="string-indicator"
-        data-string-number={string.stringNumber}
-        onClick={() => onFretClick?.(string.stringNumber, 0)}
-        title={options?.displayNotes ? string.openNote : ""}
-      >
-        {getStringIndicator(string)}
-      </button>
-    ))}
-  </div>
-);
+export const StringIndicators = ({ displayNotes }: StringIndicatorsProps) => {
+  const { fretboard, highlightFret } = useFretboardContext();
+
+  return (
+    <div className="string-indicators" aria-label="String Indicators">
+      {fretboard.strings.map((string) => (
+        <button
+          key={`string-indicator-${string.stringNumber}`}
+          className="string-indicator"
+          data-string-number={string.stringNumber}
+          onClick={() => highlightFret(string.stringNumber, 0)}
+          title={displayNotes ? string.openNote : ""}
+        >
+          {getStringIndicator(string)}
+        </button>
+      ))}
+    </div>
+  );
+};

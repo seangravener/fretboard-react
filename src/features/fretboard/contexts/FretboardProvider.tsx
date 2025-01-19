@@ -12,8 +12,8 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   );
   const currentNotes = getCurrentNotes(fretboard);
   const activeFrets = getActiveFrets(fretboard);
-  const currentChord: string = identifyChord(fretboard.strings);
-  const contextValue = useMemo(
+  const currentChord = identifyChord(fretboard.strings);
+  const memoizedValue = useMemo(
     () => ({
       fretboard,
       highlightFret,
@@ -25,7 +25,7 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <FretboardContext.Provider value={contextValue}>
+    <FretboardContext.Provider value={memoizedValue}>
       {children}
     </FretboardContext.Provider>
   );
