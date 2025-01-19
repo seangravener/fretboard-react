@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from "rxjs";
-import { INITIAL_TUNING, INITIAL_FRETS } from "../constants";
+import { INITIAL_TUNING, INITIAL_NUM_OF_FRETS } from "../constants";
 import { Fretboard, FretNumber, StringNumber } from "../types";
 import { generateFretboard } from "../generators/fretboardGenerator";
 
@@ -8,7 +8,7 @@ export class FretboardStateService {
   private readonly fretboardSubject: BehaviorSubject<Fretboard>;
 
   private constructor() {
-    const initialState = generateFretboard(INITIAL_TUNING, INITIAL_FRETS);
+    const initialState = generateFretboard(INITIAL_TUNING, INITIAL_NUM_OF_FRETS);
     this.fretboardSubject = new BehaviorSubject<Fretboard>(initialState);
   }
 

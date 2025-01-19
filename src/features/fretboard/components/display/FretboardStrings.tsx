@@ -2,13 +2,13 @@ import { Fretboard, FretNumber, StringNumber } from "../../types";
 
 type FretboardStringsProps = {
   fretboard: Fretboard;
-  options?: { displayNotes: boolean };
+  displayNotes: boolean;
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
 export const FretboardStrings = ({
   fretboard,
-  options,
+  displayNotes,
   onFretClick,
 }: FretboardStringsProps) => (
   <div className="fretboard">
@@ -21,7 +21,7 @@ export const FretboardStrings = ({
             aria-label="Fret"
             onClick={() => onFretClick?.(string.stringNumber, fret.fretNumber)}
           >
-            {options?.displayNotes ? <span>{fret.note}</span> : null}
+            {displayNotes ? <span>{fret.note}</span> : null}
           </button>
         ))}
       </div>

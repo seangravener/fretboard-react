@@ -1,34 +1,31 @@
-import { Fretboard, FretNumber, StringNumber } from "../../types";
+import { FretboardDisplayOptions } from "../../types";
 import { CurrentChordDisplay } from "./CurrentChordDisplay";
 import { FretboardStrings } from "./FretboardStrings";
 import { FretboardNoteLabels } from "./FretboardNoteLabels";
 import { StringIndicators } from "./StringIndicators";
+import { ChordDisplay } from "./ChordDisplay";
+import { useFretboardContext } from "../../hooks/useFretboardContext";
 
 import "./FretboardDisplay.css";
-import { ChordDisplay } from "./ChordDisplay";
 
-type FretboardDisplayProps = {
-  fretboard: Fretboard;
-  options?: { displayNotes: boolean };
-  onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
-};
+export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
+  const { fretboard, highlightFret } = useFretboardContext();
 
-export const FretboardDisplay = ({
-  fretboard,
-  options,
-  onFretClick,
-}: FretboardDisplayProps) => {
   return (
     <>
       <CurrentChordDisplay style={{ margin: "22px" }} />
       <ChordDisplay />
       <div className="fretboard-container">
         <FretboardNoteLabels />
-        <StringIndicators onFretClick={onFretClick} fretboard={fretboard} />
+
+        {/* @TODO Use context instead of prop drilling */}
+        <StringIndicators onFretClick={highlightFret} fretboard={fretboard} />
+
+        {/* @TODO Use context instead of prop drilling */}
         <FretboardStrings
           fretboard={fretboard}
-          options={options}
-          onFretClick={onFretClick}
+          displayNotes={displayNotes}
+          onFretClick={highlightFret}
         />
       </div>
     </>
