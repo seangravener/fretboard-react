@@ -43,4 +43,4 @@ export type FretPositions = [
   FretNumber
 ];
 
-export type FretboardDisplayOptions = { displayNotes: boolean };
+export type FretboardDisplayOptions = { displayNotes?: boolean };
