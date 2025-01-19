@@ -1,7 +1,7 @@
 import { FretboardDisplayOptions, FretPositions, Tuning } from "./types";
 
 export const INITIAL_DISPLAY_OPTIONS: FretboardDisplayOptions = {
-  // @TODO relocate numOfFrets, initialTuning, initialHighlightedFrets here
+  // @TODO numOfFrets, initialTuning, initialHighlightedFrets
   displayNotes: false,
 };
 
