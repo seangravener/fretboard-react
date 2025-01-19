@@ -2,7 +2,7 @@ import { Fretboard, FretNumber, StringNumber } from "../../types";
 
 type FretboardStringsProps = {
   fretboard: Fretboard;
-  displayNotes: boolean;
+  displayNotes?: boolean;
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 

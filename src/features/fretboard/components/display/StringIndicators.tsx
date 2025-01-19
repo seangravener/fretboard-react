@@ -3,13 +3,13 @@ import { getStringIndicator } from "../../utils/fretboard.utils";
 
 type Props = {
   fretboard: Fretboard;
-  options?: { displayNotes: boolean };
+  displayNotes?: boolean;
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
 export const StringIndicators = ({
   fretboard,
-  options,
+  displayNotes,
   onFretClick,
 }: Props) => (
   <div className="string-indicators" aria-label="String Indicators">
@@ -19,7 +19,7 @@ export const StringIndicators = ({
         className="string-indicator"
         data-string-number={string.stringNumber}
         onClick={() => onFretClick?.(string.stringNumber, 0)}
-        title={options?.displayNotes ? string.openNote : ""}
+        title={displayNotes ? string.openNote : ""}
       >
         {getStringIndicator(string)}
       </button>

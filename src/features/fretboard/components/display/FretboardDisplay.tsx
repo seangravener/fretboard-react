@@ -17,15 +17,15 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
       <ChordDisplay />
       <div className="fretboard-container">
         <FretboardNoteLabels />
-
-        {/* @TODO Use context instead of prop drilling */}
-        <StringIndicators onFretClick={highlightFret} fretboard={fretboard} />
-
-        {/* @TODO Use context instead of prop drilling */}
+        <StringIndicators
+          fretboard={fretboard}
+          onFretClick={highlightFret}
+          displayNotes={displayNotes}
+        />
         <FretboardStrings
           fretboard={fretboard}
-          displayNotes={displayNotes}
           onFretClick={highlightFret}
+          displayNotes={displayNotes}
         />
       </div>
     </>
