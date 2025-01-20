@@ -6,6 +6,8 @@ export type FretNumber = (typeof FRET_NUMBERS)[number];
 export type StringNumber = (typeof STRING_NUMBERS)[number];
 
 export type Fretboard = {
+  // numOfFrets: FretNumber;
+  currentStartFret: FretNumber;
   strings: FretboardString[];
 };
 
@@ -30,6 +32,7 @@ export type Chord = {
 export type FretboardContextType = {
   fretboard: Fretboard;
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
+  setStartingFret: (fretNumber: FretNumber) => void;
   currentNotes: ChromaticNote[];
   currentChord: Chord | string | null;
 };

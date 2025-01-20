@@ -2,15 +2,28 @@ import { Fret, FretNumber } from "../types";
 import { calcNoteAtFret } from "../utils/fretboard.utils";
 
 export const generateFrets = (
-  numFrets: FretNumber,
+  numOfFrets: FretNumber,
   openNote: string,
-  highlightedFret: FretNumber
+  currentStartFret: FretNumber = 0,
+  highlightedFret: FretNumber = 0
 ): Fret[] => {
-  const createFret = (_: undefined, index: number): Fret => ({
-    fretNumber: index as FretNumber,
-    isHighlighted: highlightedFret === (index as FretNumber),
-    note: calcNoteAtFret(openNote, index as FretNumber),
-  });
+  const createFret = (_: undefined, index: number): Fret => {
+    // Skip fret 0 for open/muted state
+    if (index === 0) {
+      return {
+        fretNumber: 0 as FretNumber,
+        isHighlighted: highlightedFret === 0,
+        note: openNote,
+      };
+    }
 
-  return Array.from({ length: numFrets + 1 }, createFret);
+    const adjustedFretNumber = (index + currentStartFret) as FretNumber;
+    return {
+      fretNumber: adjustedFretNumber,
+      isHighlighted: highlightedFret === adjustedFretNumber,
+      note: calcNoteAtFret(openNote, adjustedFretNumber),
+    };
+  };
+
+  return Array.from({ length: numOfFrets + 1 }, createFret);
 };

@@ -4,11 +4,18 @@ import { generateFretboard } from "../generators/fretboard.generator";
 
 export const useFretboard = (
   initialTuning: Tuning,
-  initialFrets: FretNumber
+  initialNumOfFrets: FretNumber,
+  startAtFret: FretNumber = 0
 ) => {
-  const [fretboard, setFretboard] = useState<Fretboard>(() => {
-    return generateFretboard(initialTuning, initialFrets);
-  });
+  const [fretboard, setFretboard] = useState<Fretboard>(() =>
+    generateFretboard(initialTuning, initialNumOfFrets, startAtFret)
+  );
+
+  const setStartingFret = (currentStartFret: FretNumber) => {
+    setFretboard(() => ({
+      ...generateFretboard(initialTuning, initialNumOfFrets, currentStartFret),
+    }));
+  };
 
   const highlightFret = (
     stringNumber: StringNumber,
@@ -16,6 +23,8 @@ export const useFretboard = (
   ) => {
     setFretboard((prev) => ({
       ...prev,
+
+      // @TODO replace with generateFretboard()
       strings: prev.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
@@ -39,5 +48,5 @@ export const useFretboard = (
     }));
   };
 
-  return { fretboard, highlightFret };
+  return { fretboard, highlightFret, setStartingFret };
 };

@@ -6,7 +6,7 @@ import { identifyChord } from "../utils/chord.utils";
 import { getActiveFrets, getCurrentNotes } from "../utils/fretboard.utils";
 
 export const FretboardProvider = ({ children }: { children: ReactNode }) => {
-  const { fretboard, highlightFret } = useFretboard(
+  const { fretboard, highlightFret, setStartingFret } = useFretboard(
     INITIAL_TUNING,
     INITIAL_NUM_OF_FRETS
   );
@@ -15,13 +15,21 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
   const currentChord: string = identifyChord(fretboard.strings);
   const contextValue = useMemo(
     () => ({
-      fretboard,
       highlightFret,
+      setStartingFret,
+      fretboard,
       currentNotes,
       currentChord,
       activeFrets,
     }),
-    [fretboard, highlightFret, currentNotes, currentChord, activeFrets]
+    [
+      highlightFret,
+      setStartingFret,
+      fretboard,
+      currentNotes,
+      currentChord,
+      activeFrets,
+    ]
   );
 
   return (

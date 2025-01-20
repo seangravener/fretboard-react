@@ -8,9 +8,15 @@ export const generateString = (
   stringNumber: StringNumber,
   openNote: string,
   numFrets: FretNumber,
+  currentStartFret: FretNumber,
   highlightedFret: FretNumber
 ): FretboardString => {
-  const frets: Fret[] = generateFrets(numFrets, openNote, highlightedFret);
+  const frets: Fret[] = generateFrets(
+    numFrets,
+    openNote,
+    currentStartFret,
+    highlightedFret
+  );
 
   return {
     stringNumber,

@@ -1,30 +1,27 @@
 import { INITIAL_HIGHLIGHTED_FRETS } from "../constants";
 import { generateString } from "./string.generator";
 
-import {
-  Fretboard,
-  FretNumber,
-  FretPositions,
-  StringNumber,
-  Tuning,
-} from "../types";
+import { Fretboard, FretNumber, StringNumber, Tuning } from "../types";
 
 export const generateFretboard = (
   tuning: Tuning,
-  numFrets: FretNumber,
-  highlightedFretPositions: FretPositions = INITIAL_HIGHLIGHTED_FRETS
+  numOfFrets: FretNumber,
+  currentStartFret: FretNumber = 0,
+  highlightedFretPositions = INITIAL_HIGHLIGHTED_FRETS
 ): Fretboard => {
   return {
+    currentStartFret,
     strings: tuning.map((openNote, index) => {
       const currentFret = highlightedFretPositions[index];
       const highlightedFret =
-        currentFret === -1 ? (-1 as FretNumber) : (currentFret as FretNumber);
+        currentFret === -1 ? (-1 as FretNumber) : currentFret;
 
       return generateString(
         (index + 1) as StringNumber,
         openNote,
-        numFrets,
-        highlightedFret
+        numOfFrets,
+        currentStartFret,
+        highlightedFret,
       );
     }),
   };
