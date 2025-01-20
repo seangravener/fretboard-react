@@ -14,7 +14,8 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
 
   return (
     <>
-      <button onClick={() => setStartAtFret(2)}>Change Fret Start</button>
+      <button onClick={() => setStartAtFret(3)}>Change Fret Start 3</button>
+      <button onClick={() => setStartAtFret(6)}>Change Fret Start 6</button>
       <CurrentChordDisplay style={{ margin: "22px" }} />
       <ChordDisplay />
       <FretboardControls

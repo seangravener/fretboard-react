@@ -1,3 +1,4 @@
+import { FIRST_FRET } from "../../constants";
 import { Fretboard, FretNumber } from "../../types";
 
 type Props = {
@@ -18,7 +19,7 @@ export const FretboardControls = ({
   };
 
   const decrementFret = () => {
-    if (fretboard.startAtFret > 0) {
+    if (fretboard.startAtFret > FIRST_FRET) {
       onStartFretChange((fretboard.startAtFret - 1) as FretNumber);
     }
   };
@@ -26,7 +27,10 @@ export const FretboardControls = ({
   return (
     <div className="fretboard-controls" aria-label="Fretboard Controls">
       <div className="fret-position-controls">
-        <button onClick={decrementFret} disabled={fretboard.startAtFret === 0}>
+        <button
+          onClick={decrementFret}
+          disabled={fretboard.startAtFret === FIRST_FRET}
+        >
           ↑
         </button>
         <span>Start Fret: {fretboard.startAtFret}</span>

@@ -3,9 +3,9 @@ import { Fretboard, FretNumber, StringNumber, Tuning } from "../types";
 import { generateFretboard } from "../generators/fretboard.generator";
 
 export const useFretboard = (
-  initialTuning: Tuning,
-  initialNumOfFrets: FretNumber,
-  startAtFret: FretNumber = 0
+  initialTuning?: Tuning,
+  initialNumOfFrets?: FretNumber,
+  startAtFret?: FretNumber
 ) => {
   const [fretboard, setFretboard] = useState<Fretboard>(() =>
     generateFretboard(initialTuning, initialNumOfFrets, startAtFret)
@@ -24,7 +24,7 @@ export const useFretboard = (
     setFretboard((prev) => ({
       ...prev,
 
-      // @TODO replace with generateFretboard()
+      // @TODO replace with generateFretboard() with FretboardPositions set
       strings: prev.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
