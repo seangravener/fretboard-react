@@ -4,7 +4,7 @@ import { calcNoteAtFret } from "../utils/fretboard.utils";
 export const generateFrets = (
   numOfFrets: FretNumber,
   openNote: string,
-  currentStartFret: FretNumber = 0,
+  startAtFret: FretNumber = 0,
   highlightedFret: FretNumber = 0
 ): Fret[] => {
   const createFret = (_: undefined, index: number): Fret => {
@@ -17,7 +17,7 @@ export const generateFrets = (
       };
     }
 
-    const adjustedFretNumber = (index + currentStartFret) as FretNumber;
+    const adjustedFretNumber = (index + startAtFret) as FretNumber;
     return {
       fretNumber: adjustedFretNumber,
       isHighlighted: highlightedFret === adjustedFretNumber,

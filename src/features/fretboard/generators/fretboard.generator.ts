@@ -6,11 +6,11 @@ import { Fretboard, FretNumber, StringNumber, Tuning } from "../types";
 export const generateFretboard = (
   tuning: Tuning,
   numOfFrets: FretNumber,
-  currentStartFret: FretNumber = 0,
+  startAtFret: FretNumber = 0,
   highlightedFretPositions = INITIAL_HIGHLIGHTED_FRETS
 ): Fretboard => {
   return {
-    currentStartFret,
+    startAtFret,
     strings: tuning.map((openNote, index) => {
       const currentFret = highlightedFretPositions[index];
       const highlightedFret =
@@ -20,7 +20,7 @@ export const generateFretboard = (
         (index + 1) as StringNumber,
         openNote,
         numOfFrets,
-        currentStartFret,
+        startAtFret,
         highlightedFret,
       );
     }),

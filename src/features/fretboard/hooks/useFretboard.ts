@@ -11,9 +11,9 @@ export const useFretboard = (
     generateFretboard(initialTuning, initialNumOfFrets, startAtFret)
   );
 
-  const setStartingFret = (currentStartFret: FretNumber) => {
+  const setStartAtFret = (currentFret: FretNumber) => {
     setFretboard(() => ({
-      ...generateFretboard(initialTuning, initialNumOfFrets, currentStartFret),
+      ...generateFretboard(initialTuning, initialNumOfFrets, currentFret),
     }));
   };
 
@@ -48,5 +48,5 @@ export const useFretboard = (
     }));
   };
 
-  return { fretboard, highlightFret, setStartingFret };
+  return { fretboard, highlightFret, setStartAtFret };
 };
