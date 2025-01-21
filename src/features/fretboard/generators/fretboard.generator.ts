@@ -18,7 +18,7 @@ export const generateFretboard = (
   return {
     startAtFret,
     strings: tuning.map((openNote, index) => {
-      const currentFret = highlightedFretPositions[index];
+      const currentFret = highlightedFretPositions[index] as FretNumber;
       const highlightedFret =
         currentFret === MUTED_FRET ? MUTED_FRET : currentFret;
 

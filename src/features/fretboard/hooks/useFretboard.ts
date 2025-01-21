@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Fretboard, FretNumber, StringNumber, Tuning } from "../types";
+import {
+  Fretboard,
+  FretNumber,
+  FrettedStringPositions,
+  StringNumber,
+  Tuning,
+} from "../types";
 import { generateFretboard } from "../generators/fretboard.generator";
 
 export const useFretboard = (
@@ -11,12 +17,28 @@ export const useFretboard = (
     generateFretboard(initialTuning, initialNumOfFrets, startAtFret)
   );
 
-  const setStartAtFret = (currentFret: FretNumber) => {
+  const setStartAtFret = (startAtFret: FretNumber) => {
+    const highlightedFretPositions = fretboard.strings.map((string) => {
+      const highlightedFret = string.frets.find((fret) => fret.isHighlighted);
+      if (highlightedFret?.fretNumber === 0) return 0;
+
+      const highlightedFretNumber = highlightedFret
+        ? highlightedFret.fretNumber
+        : 0;
+      const relativePosition = highlightedFretNumber - fretboard.startAtFret;
+
+      return startAtFret + relativePosition;
+    }) as FrettedStringPositions;
+
     setFretboard(() => ({
-      ...generateFretboard(initialTuning, initialNumOfFrets, currentFret),
+      ...generateFretboard(
+        initialTuning,
+        initialNumOfFrets,
+        startAtFret,
+        highlightedFretPositions
+      ),
     }));
   };
-
   // @TODO refactor with FretboardPositions[] as an optional input
   const highlightFret = (
     stringNumber: StringNumber,
