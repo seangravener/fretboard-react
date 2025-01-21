@@ -14,24 +14,28 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
 
   return (
     <>
-      <button onClick={() => setStartAtFret(3)}>Change Fret Start 3</button>
-      <button onClick={() => setStartAtFret(6)}>Change Fret Start 6</button>
       <CurrentChordDisplay style={{ margin: "22px" }} />
       <ChordDisplay />
-      <FretboardControls
-        fretboard={fretboard}
-        onStartFretChange={setStartAtFret}
-        onDisplayNotesToggle={() => {}}
-      />
-      <div className="fretboard-container">
-        <FretboardNoteLabels />
-        <StringIndicators fretboard={fretboard} onFretClick={highlightFret} />
-        <FretboardStrings
+
+      <div className="flex max-w-3xl m-auto">
+        <div className="fretboard-container">
+          <FretboardNoteLabels />
+          <StringIndicators fretboard={fretboard} onFretClick={highlightFret} />
+          <FretboardStrings
+            fretboard={fretboard}
+            onFretClick={highlightFret}
+            displayNotes={displayNotes}
+          />
+        </div>
+        <FretboardControls
           fretboard={fretboard}
-          onFretClick={highlightFret}
-          displayNotes={displayNotes}
+          onStartFretChange={setStartAtFret}
+          onDisplayNotesToggle={() => {}}
         />
       </div>
+
+      <button onClick={() => setStartAtFret(3)}>Change Fret Start 3</button>
+      <button onClick={() => setStartAtFret(6)}>Change Fret Start 6</button>
     </>
   );
 };

@@ -1,14 +1,4 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.fretboard-container {
-  margin: 22px;
-}
+/* @TODO prefix .fretboard; use scss for joining classes */
 
 .fretboard {
   display: flex;

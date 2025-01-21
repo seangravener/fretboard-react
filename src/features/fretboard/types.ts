@@ -37,13 +37,13 @@ export type FretboardContextType = {
   currentChord: Chord | string | null;
 };
 
-export type FretPositions = [
-  FretNumber,
-  FretNumber,
-  FretNumber,
-  FretNumber,
-  FretNumber,
-  FretNumber
+export type FrettedStringPositions = [
+  FretNumber?,
+  FretNumber?,
+  FretNumber?,
+  FretNumber?,
+  FretNumber?,
+  FretNumber?
 ];
 
 export type FretboardDisplayOptions = { displayNotes?: boolean };

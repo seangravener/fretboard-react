@@ -1,4 +1,4 @@
-import { FIRST_FRET } from "../../constants";
+import { FINAL_FRET, FIRST_FRET } from "../../constants";
 import { Fretboard, FretNumber } from "../../types";
 
 type Props = {
@@ -26,15 +26,24 @@ export const FretboardControls = ({
 
   return (
     <div className="fretboard-controls" aria-label="Fretboard Controls">
-      <div className="fret-position-controls">
+      <div className="fret-position-controls text-center mb-4">
         <button
+          className="px-4 py-2 border border-slate-700 bg-slate-200 rounded-lg"
           onClick={decrementFret}
           disabled={fretboard.startAtFret === FIRST_FRET}
         >
           ↑
         </button>
-        <span>Start Fret: {fretboard.startAtFret}</span>
-        <button onClick={incrementFret}>↓</button>
+        <div 
+        className=""
+        title="Current Start Fret">{fretboard.startAtFret}</div>
+        <button
+          className="px-4 py-2 border border-slate-700 bg-slate-200 rounded-lg"
+          onClick={incrementFret}
+          disabled={fretboard.startAtFret === FINAL_FRET}
+        >
+          ↓
+        </button>
       </div>
       <div className="display-controls">
         <label>
