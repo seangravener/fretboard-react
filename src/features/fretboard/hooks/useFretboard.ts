@@ -17,6 +17,7 @@ export const useFretboard = (
     }));
   };
 
+  // @TODO refactor with FretboardPositions[] as an optional input
   const highlightFret = (
     stringNumber: StringNumber,
     fretNumber: FretNumber
@@ -24,7 +25,7 @@ export const useFretboard = (
     setFretboard((prev) => ({
       ...prev,
 
-      // @TODO replace with generateFretboard() with FretboardPositions set
+      // @TODO replace with generateStrings() with FretboardPositions set
       strings: prev.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
