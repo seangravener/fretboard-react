@@ -1,7 +1,7 @@
 import {
   FretboardDisplayOptions,
   FretNumber,
-  FretPositions,
+  FrettedStringPositions,
   Tuning,
 } from "./types";
 
@@ -12,7 +12,7 @@ export const INITIAL_DISPLAY_OPTIONS: FretboardDisplayOptions = {
 
 export const INITIAL_START_AT_FRET = 1;
 export const INITIAL_NUM_OF_FRETS = 6;
-export const INITIAL_HIGHLIGHTED_FRETS: FretPositions = [0, 0, 0, 0, 0, 0]; // prettier-ignore
+export const INITIAL_HIGHLIGHTED_FRETS: FrettedStringPositions = [0, 0, 0, 0, 0, 0]; // prettier-ignore
 export const INITIAL_TUNING: Tuning = ["E", "A", "D", "G", "B", "E"];
 
 export const CHROMATIC_SCALE = [ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]; // prettier-ignore
@@ -22,4 +22,5 @@ export const FRET_NUMBERS = [ -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
 export const OPEN_FRET: FretNumber = 0;
 export const FIRST_FRET: FretNumber = 1;
 export const MUTED_FRET: FretNumber = -1;
-export const SHIFT_START_FRET: FretNumber = 2;
+export const SHIFT_START_AT_FRET: FretNumber = 2;
+export const FINAL_FRET: FretNumber = FRET_NUMBERS[FRET_NUMBERS.length - 1];
