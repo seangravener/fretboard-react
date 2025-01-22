@@ -9,12 +9,12 @@ import {
 import { generateFretboard } from "../generators/fretboard.generator";
 
 export const useFretboard = (
-  initialTuning?: Tuning,
-  initialNumOfFrets?: FretNumber,
+  tuning?: Tuning,
+  numOfFrets?: FretNumber,
   startAtFret?: FretNumber
 ) => {
   const [fretboard, setFretboard] = useState<Fretboard>(() =>
-    generateFretboard(initialTuning, initialNumOfFrets, startAtFret)
+    generateFretboard(tuning, numOfFrets, startAtFret)
   );
 
   const setStartAtFret = (startAtFret: FretNumber) => {
@@ -32,8 +32,8 @@ export const useFretboard = (
 
     setFretboard(() => ({
       ...generateFretboard(
-        initialTuning,
-        initialNumOfFrets,
+        tuning,
+        numOfFrets,
         startAtFret,
         highlightedFretPositions
       ),
