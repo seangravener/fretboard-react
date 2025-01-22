@@ -10,7 +10,10 @@ import "./FretboardDisplay.css";
 import { FretboardControls } from "./FretboardControls";
 
 export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
-  const { fretboard, highlightFret, setStartAtFret } = useFretboardContext();
+  const {
+    fretboardState: { fretboard },
+    controls: { highlightFret, setStartAtFret },
+  } = useFretboardContext();
 
   return (
     <>

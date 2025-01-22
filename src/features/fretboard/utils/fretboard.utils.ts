@@ -5,6 +5,7 @@ import {
   Fretboard,
   FretboardString,
   FretNumber,
+  FrettedStringPositions,
 } from "../types";
 
 export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
@@ -13,7 +14,12 @@ export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
   );
 };
 
-export const getActiveFrets = (fretboard: Fretboard): Fret[] => {
+// @TODO
+//  1. Return proper Fret {} object (not just the fretNumber)
+//  2. Use name FrettedPositions for return type
+export const getActiveFrets = (
+  fretboard: Fretboard
+): FrettedStringPositions => {
   const inactiveFret: Fret = {
     fretNumber: 0 as FretNumber,
     isHighlighted: false,
@@ -23,7 +29,7 @@ export const getActiveFrets = (fretboard: Fretboard): Fret[] => {
   return fretboard.strings.map(
     (string) =>
       string.frets.filter((fret) => fret.isHighlighted).at(-1) ?? inactiveFret
-  );
+  ) as unknown as FrettedStringPositions;
 };
 
 export const calcNoteAtFret = (

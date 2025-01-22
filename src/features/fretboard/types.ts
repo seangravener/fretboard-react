@@ -29,12 +29,39 @@ export type Chord = {
   quality: string;
 };
 
-export type FretboardContextType = {
+export type FretboardContextType_old = {
   fretboard: Fretboard;
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
   setStartAtFret: (fretNumber: FretNumber) => void;
   currentNotes: ChromaticNote[];
   currentChord: Chord | string | null;
+};
+
+export type FretboardAction =
+  | {
+      type: "HIGHLIGHT_FRET";
+      payload: { string: StringNumber; fret: FretNumber };
+    }
+  | { type: "SET_START_FRET"; payload: FretNumber };
+
+export type FretboardContextType = {
+  fretboardState: FretboardState;
+  dispatch: React.Dispatch<FretboardAction>;
+  controls: {
+    highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
+    setStartAtFret: (fretNumber: FretNumber) => void;
+  };
+};
+
+export type FretboardState = {
+  fretboard: Fretboard;
+  computed: {
+    currentNotes: ChromaticNote[];
+    currentChord: Chord | string | null;
+    activeFrets: FrettedStringPositions;
+  };
+  highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
+  setStartAtFret: (fretNumber: FretNumber) => void;
 };
 
 export type FrettedStringPositions = [

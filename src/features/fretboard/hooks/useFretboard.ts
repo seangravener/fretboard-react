@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Fretboard,
+  FretboardState,
   FretNumber,
   FrettedStringPositions,
   StringNumber,
@@ -17,10 +18,17 @@ export const useFretboard = (
     generateFretboard(tuning, numOfFrets, startAtFret)
   );
 
+  const [fretboardState, setFretboardState] = useState<FretboardState>(
+    (): FretboardState => ({
+      ...fretboardState,
+      fretboard: generateFretboard(tuning, numOfFrets, startAtFret),
+    })
+  );
+
   const setStartAtFret = (startAtFret: FretNumber) => {
     const highlightedFretPositions = fretboard.strings.map((string) => {
       const highlightedFret = string.frets.find((fret) => fret.isHighlighted);
-      if (highlightedFret?.fretNumber === 0) return 0;
+      if (highlightedFret?.fretNumber === 0) return 0; // Skip open strings
 
       const highlightedFretNumber = highlightedFret
         ? highlightedFret.fretNumber
@@ -30,6 +38,17 @@ export const useFretboard = (
       return startAtFret + relativePosition;
     }) as FrettedStringPositions;
 
+    setFretboardState((prev) => ({
+      ...prev,
+      fretboard: generateFretboard(
+        tuning,
+        numOfFrets,
+        startAtFret,
+        highlightedFretPositions
+      ),
+    }));
+
+    // @TODO Depricate
     setFretboard(() => ({
       ...generateFretboard(
         tuning,
@@ -39,16 +58,15 @@ export const useFretboard = (
       ),
     }));
   };
-  // @TODO refactor with FretboardPositions[] as an optional input
+
   const highlightFret = (
+    // @TODO refactor with FretboardPositions[] as param
     stringNumber: StringNumber,
     fretNumber: FretNumber
   ) => {
-    setFretboard((prev) => ({
-      ...prev,
-
-      // @TODO replace with generateStrings() with FretboardPositions set
-      strings: prev.strings.map((string) => {
+    // @TODO replace with generateStrings() with FretboardPositions set
+    const updatedStrings = ({ fretboard }: FretboardState) =>
+      fretboard.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
 
         const updatedFrets = string.frets.map((fret) => ({
@@ -61,15 +79,31 @@ export const useFretboard = (
           (fret) => fret.isHighlighted
         );
 
-        // @TODO Toggle string open/muted state back to previous, unfretted state
         if (hasNoHighlightedFrets && fretNumber !== 0) {
+          // @TODO Toggle string open/muted state back to previous, unfretted state
           updatedFrets[0].isHighlighted = !string.frets[0].isHighlighted;
         }
 
         return { ...string, frets: updatedFrets };
-      }),
+      });
+
+    setFretboardState((prev) => ({
+      ...prev,
+      fretboard: { ...prev.fretboard, strings: updatedStrings(prev) },
+    }));
+
+    // @TODO Depricate
+    setFretboard((prev) => ({
+      ...prev,
+      strings: updatedStrings({ fretboard: prev } as FretboardState),
     }));
   };
 
-  return { fretboard, highlightFret, setStartAtFret };
+  return {
+    fretboard,
+    fretboardState,
+    highlightFret,
+    setStartAtFret,
+    generateFretboard,
+  };
 };
