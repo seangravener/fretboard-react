@@ -27,7 +27,8 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           action.payload.fret
         );
         const { fretboard } = updatedFretboard;
-        
+        console.log(updatedFretboard);
+
         return {
           ...fretboardState,
           fretboard: { ...fretboard },
@@ -66,8 +67,10 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
       fretboardState: currentFretboardState,
       dispatch,
       controls: {
-        highlightFret: (string: StringNumber, fret: FretNumber) =>
-          dispatch({ type: "HIGHLIGHT_FRET", payload: { string, fret } }),
+        highlightFret: (string: StringNumber, fret: FretNumber) => {
+          console.log(string, fret, "before highlight dispatch");
+          dispatch({ type: "HIGHLIGHT_FRET", payload: { string, fret } });
+        },
         setStartAtFret: (fret: FretNumber) =>
           dispatch({ type: "SET_START_FRET", payload: fret }),
       },

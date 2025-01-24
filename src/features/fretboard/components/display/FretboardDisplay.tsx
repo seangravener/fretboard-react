@@ -27,8 +27,8 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
           <FretboardStrings
             fretboard={fretboard}
             onFretClick={(st, fr) => {
-              console.log(st, fr);
-              return highlightFret;
+              console.log(st, fr, "onfretclick");
+              return highlightFret(st, fr);
             }}
             displayNotes={displayNotes}
           />

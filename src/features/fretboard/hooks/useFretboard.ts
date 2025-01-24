@@ -14,6 +14,7 @@ import {
   INITIAL_TUNING,
   SHIFT_START_AT_FRET,
 } from "../constants";
+import { getActiveFrets } from "../utils/fretboard.utils";
 
 export const useFretboard = (
   tuning: Tuning = INITIAL_TUNING,
@@ -95,38 +96,41 @@ export const useFretboard = (
       });
 
     const frettedPositions: FrettedStringPositions = generateStrings(
-      stringNumber,
       numOfFrets,
       startAtFret,
-      [0, 0, 0, 0, 0, 0]
-    ).flatMap((string) =>
-      string.frets
-        .slice(0, 6)
-        .map((fret) =>
-          fret.isHighlighted
-            ? string.frets.find((fret) => fret.isHighlighted)?.fretNumber
-            : 0
-        )
-    ) as FrettedStringPositions;
+      [1, 2, 0, 0, 0, 0]
+    );
+
+    // .flatMap((string) => {
+    //   console.log(string);
+    //   return string.frets
+    //     .slice(0, 6)
+    //     .map((fret) =>
+    //       fret.isHighlighted
+    //         ? string.frets.find((fret) => fret.isHighlighted)?.fretNumber
+    //         : 0
+    //     );
+    // }) as FrettedStringPositions;
 
     const fretboard = generateFretboard(
       tuning,
       numOfFrets,
       startAtFret,
-      // frettedPositions
+      [0, 1, 2, 3, 4, 5]
     );
 
+    console.log("frettedPositions", frettedPositions);
     return {
       fretboard: {
         ...fretboard,
-        strings: generateStrings(
-          stringNumber,
-          numOfFrets,
-          startAtFret,
-          frettedPositions
-        ),
+        strings: updatedStrings({ fretboard }),
+        // strings: generateStrings(
+        //   stringNumber,
+        //   numOfFrets,
+        //   startAtFret,
+        //   frettedPositions
+        // ),
       },
-      // fretboard: { strings: updatedStrings({ fretboard }) },
     };
 
     // @TODO Depricate

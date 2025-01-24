@@ -1,4 +1,4 @@
-import { INITIAL_TUNING } from "../constants";
+import { INITIAL_TUNING, MUTED_FRET } from "../constants";
 import {
   Fret,
   FretNumber,
@@ -34,24 +34,19 @@ export const generateString = (
 };
 
 export const generateStrings = (
-  stringNumber: StringNumber,
-  numFrets: FretNumber,
+  numOfFrets: FretNumber,
   startAtFret: FretNumber,
   highlightedFrets: FrettedStringPositions
 ): FretboardString[] => {
-  return INITIAL_TUNING.flatMap((openNote: ChromaticNote) => {
-    return highlightedFrets.map((fretNumber) => {
-      if (!fretNumber) {
-        fretNumber = -1;
-      }
+  return INITIAL_TUNING.map((openNote: ChromaticNote, index) => {
+    const highlightedFret = highlightedFrets[index] ?? MUTED_FRET;
 
-      return generateString(
-        stringNumber,
-        openNote,
-        numFrets,
-        startAtFret,
-        fretNumber
-      );
-    });
+    return generateString(
+      (index + 1) as StringNumber,
+      openNote,
+      numOfFrets,
+      startAtFret,
+      highlightedFret
+    );
   });
 };
