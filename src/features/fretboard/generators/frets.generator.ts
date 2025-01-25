@@ -1,4 +1,4 @@
-import { OPEN_FRET, SHIFT_START_AT_FRET } from "../constants";
+import { OPEN_FRET_NUM, SHIFT_START_AT_FRET_NUM } from "../constants";
 import { Fret, FretNumber } from "../types";
 import { calcNoteAtFret } from "../utils/fretboard.utils";
 
@@ -9,7 +9,7 @@ export const generateFrets = (
   highlightedFret: FretNumber
 ): Fret[] => {
   const createFret = (_: undefined, index: number): Fret => {
-    if (index === OPEN_FRET) {
+    if (index === OPEN_FRET_NUM) {
       return {
         fretNumber: index,
         isHighlighted: highlightedFret === index,
@@ -18,7 +18,7 @@ export const generateFrets = (
     }
 
     const adjustedFretNumber = (index +
-      (startAtFret >= SHIFT_START_AT_FRET ? startAtFret - 1 : 0)) as FretNumber;
+      (startAtFret >= SHIFT_START_AT_FRET_NUM ? startAtFret - 1 : 0)) as FretNumber;
 
     return {
       fretNumber: adjustedFretNumber,

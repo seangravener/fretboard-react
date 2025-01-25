@@ -4,9 +4,9 @@ import {
   INITIAL_NUM_OF_FRETS,
   INITIAL_START_AT_FRET,
   INITIAL_TUNING,
-  MUTED_FRET,
+  MUTED_FRET_NUM,
 } from "../constants";
-import { FretNumber, FrettedStringPositions, Tuning } from "../types";
+import { FretNumber, FretPositions, Tuning } from "../types";
 import { generateFretboard } from "./fretboard.generator";
 
 const OPEN_STRING_OFFSET = 1;
@@ -31,7 +31,7 @@ describe("generateFretboard", () => {
   });
 
   it("processes muted frets", () => {
-    const mutedPositions = [MUTED_FRET, 0, 2, 3, 0, 0] as FrettedStringPositions // prettier-ignore
+    const mutedPositions = [MUTED_FRET_NUM, 0, 2, 3, 0, 0] as FretPositions // prettier-ignore
     const fretboard = generateFretboard(
       INITIAL_TUNING,
       INITIAL_NUM_OF_FRETS,

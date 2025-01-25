@@ -3,7 +3,7 @@ import {
   INITIAL_NUM_OF_FRETS,
   INITIAL_START_AT_FRET,
   INITIAL_TUNING,
-  MUTED_FRET,
+  MUTED_FRET_NUM,
 } from "../constants";
 import { generateString } from "./string.generator";
 
@@ -20,7 +20,7 @@ export const generateFretboard = (
     strings: tuning.map((openNote, index) => {
       const currentFret = highlightedFretPositions[index] as FretNumber;
       const highlightedFret =
-        currentFret === MUTED_FRET ? MUTED_FRET : currentFret;
+        currentFret === MUTED_FRET_NUM ? MUTED_FRET_NUM : currentFret;
 
       return generateString(
         (index + 1) as StringNumber,

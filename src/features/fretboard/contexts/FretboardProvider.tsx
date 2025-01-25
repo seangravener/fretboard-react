@@ -3,7 +3,7 @@ import { useFretboard } from "../hooks/useFretboard";
 import { INITIAL_NUM_OF_FRETS, INITIAL_TUNING } from "../constants";
 import { FretboardContext } from "./FretboardContext";
 import { identifyChord } from "../utils/chord.utils";
-import { getActiveFrets, getCurrentNotes } from "../utils/fretboard.utils";
+import { getFrettedFrets, getCurrentNotes } from "../utils/fretboard.utils";
 
 import {
   FretboardAction,
@@ -35,7 +35,7 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           computed: {
             currentNotes: getCurrentNotes(fretboard),
             currentChord: identifyChord(fretboard.strings),
-            activeFrets: getActiveFrets(fretboard),
+            activeFrets: getFrettedFrets(fretboard),
           },
         };
       }
@@ -47,7 +47,7 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           computed: {
             currentNotes: getCurrentNotes(fretboard),
             currentChord: identifyChord(fretboard.strings),
-            activeFrets: getActiveFrets(fretboard),
+            activeFrets: getFrettedFrets(fretboard),
           },
         };
       }

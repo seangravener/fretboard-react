@@ -17,6 +17,15 @@ export type Fret = {
   note: ChromaticNote;
 };
 
+export type FrettedFrets = [
+  Fret,
+  Fret,
+  Fret,
+  Fret,
+  Fret,
+  Fret
+];
+
 export type FretboardString = {
   stringNumber: StringNumber;
   openNote: ChromaticNote;
@@ -58,19 +67,20 @@ export type FretboardState = {
   computed: {
     currentNotes: ChromaticNote[];
     currentChord: Chord | string | null;
-    activeFrets: FrettedStringPositions;
+    activeFrets: FretPositions;
   };
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
   setStartAtFret: (fretNumber: FretNumber) => void;
 };
 
-export type FrettedStringPositions = [
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?
+// export type FrettedNumbers =
+export type FretPositions = [
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber
 ];
 
 export type FretboardDisplayOptions = { displayNotes?: boolean };

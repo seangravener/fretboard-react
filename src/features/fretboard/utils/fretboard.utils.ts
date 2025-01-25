@@ -1,11 +1,12 @@
-import { CHROMATIC_SCALE } from "../constants";
+import { CHROMATIC_SCALE, INACTIVE_FRET } from "../constants";
 import {
   ChromaticNote,
   Fret,
   Fretboard,
   FretboardString,
   FretNumber,
-  FrettedStringPositions,
+  FretPositions,
+  FrettedFrets,
 } from "../types";
 
 export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
@@ -14,22 +15,27 @@ export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
   );
 };
 
-// @TODO
-//  1. Return proper Fret {} object (not just the fretNumber)
-//  2. Use name FrettedPositions for return type
-export const getActiveFrets = (
-  fretboard: Fretboard
-): FrettedStringPositions => {
-  const inactiveFret: Fret = {
-    fretNumber: 0 as FretNumber,
-    isHighlighted: false,
-    note: "",
-  };
+export const getFrettedFrets = (fretboard: Fretboard): FrettedFrets => {
+  const inactiveFret: Fret = INACTIVE_FRET;
+  const frettedFrets = Array(6).fill(inactiveFret) as FrettedFrets;
 
-  return fretboard.strings.map(
-    (string) =>
-      string.frets.filter((fret) => fret.isHighlighted).at(-1) ?? inactiveFret
-  ) as unknown as FrettedStringPositions;
+  fretboard.strings.forEach((string, index) => {
+    const lastHighlightedFret = string.frets
+      .filter((fret) => fret.isHighlighted)
+      .at(-1);
+    frettedFrets[index] = lastHighlightedFret ?? inactiveFret;
+  });
+
+  return frettedFrets;
+};
+
+export const getFrettedFretNumbers = (fretboard: Fretboard): FretPositions => {
+  return fretboard.strings.map((string) => {
+    const lastHighlightedFret = string.frets
+      .filter((fret) => fret.isHighlighted)
+      .at(-1);
+    return lastHighlightedFret?.fretNumber ?? (0 as FretNumber);
+  }) as FretPositions;
 };
 
 export const calcNoteAtFret = (

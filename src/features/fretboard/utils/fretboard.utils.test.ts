@@ -1,18 +1,22 @@
 import { describe, it, expect } from "vitest";
 import {
   getCurrentNotes,
-  getActiveFrets,
+  getFrettedFrets,
   calcNoteAtFret,
   isStringOpen,
   getStringIndicator,
+  getFrettedFretNumbers,
 } from "./fretboard.utils";
 // import { CHROMATIC_SCALE } from "../constants";
 import type {
+  Fret,
   Fretboard,
   FretboardString,
   FretNumber,
-  FrettedStringPositions,
+  FretPositions,
+  FrettedFrets,
 } from "../types";
+import { INACTIVE_FRET } from "../constants";
 
 describe("Fretboard Utils", () => {
   describe("getCurrentNotes", () => {
@@ -48,7 +52,7 @@ describe("Fretboard Utils", () => {
     });
   });
 
-  describe("getActiveFrets", () => {
+  describe("getFrettedNumbers", () => {
     it("should return inactive fret when no frets are highlighted", () => {
       const fretboard: Fretboard = {
         startAtFret: 1,
@@ -87,7 +91,7 @@ describe("Fretboard Utils", () => {
       };
 
       const expected = fretboard.strings.flatMap((string) => string.frets);
-      expect(getActiveFrets(fretboard)).toStrictEqual(expected);
+      expect(getFrettedFrets(fretboard)).toStrictEqual(expected);
     });
 
     it("should return last highlighted fret for each string", () => {
@@ -104,11 +108,56 @@ describe("Fretboard Utils", () => {
           },
         ],
       };
-      const expected = fretboard.strings.flatMap(
-        (string) => string.frets
-      ) as unknown as FrettedStringPositions;
-      const result = getActiveFrets(fretboard);
+
+      const expected = Array(6).fill(INACTIVE_FRET) as FrettedFrets;
+      expected[0] = fretboard.strings[0].frets[1];
+
+      const result = getFrettedFrets(fretboard);
+      expect(result).toHaveLength(6);
+      expect(result[result.length - 1]).toEqual(expected[expected.length - 1]);
       expect(result).toStrictEqual(expected);
+    });
+  });
+
+  describe("getActiveFretNumbers", () => {
+    it("should return array of fret numbers with last highlighted position", () => {
+      const fretboard: Fretboard = {
+        startAtFret: 1,
+        strings: [
+          {
+            stringNumber: 1,
+            openNote: "E",
+            frets: [{ fretNumber: 1, isHighlighted: true, note: "F" }],
+          },
+          {
+            stringNumber: 2,
+            openNote: "A",
+            frets: [{ fretNumber: 2, isHighlighted: true, note: "B" }],
+          },
+          {
+            stringNumber: 3,
+            openNote: "D",
+            frets: [{ fretNumber: 0, isHighlighted: false, note: "D" }],
+          },
+          {
+            stringNumber: 4,
+            openNote: "G",
+            frets: [{ fretNumber: 0, isHighlighted: false, note: "G" }],
+          },
+          {
+            stringNumber: 5,
+            openNote: "B",
+            frets: [{ fretNumber: 0, isHighlighted: false, note: "B" }],
+          },
+          {
+            stringNumber: 6,
+            openNote: "E",
+            frets: [{ fretNumber: 0, isHighlighted: false, note: "E" }],
+          },
+        ],
+      };
+
+      expect(getFrettedFretNumbers(fretboard)).toEqual([1, 2, 0, 0, 0, 0]);
     });
   });
 

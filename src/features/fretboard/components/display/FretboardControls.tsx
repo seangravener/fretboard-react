@@ -1,4 +1,4 @@
-import { FINAL_FRET, FIRST_FRET } from "../../constants";
+import { FINAL_FRET_NUM, FIRST_FRET_NUM } from "../../constants";
 import { Fretboard, FretNumber } from "../../types";
 
 type Props = {
@@ -19,7 +19,7 @@ export const FretboardControls = ({
   };
 
   const decrementFret = () => {
-    if (fretboard.startAtFret > FIRST_FRET) {
+    if (fretboard.startAtFret > FIRST_FRET_NUM) {
       onStartFretChange((fretboard.startAtFret - 1) as FretNumber);
     }
   };
@@ -30,7 +30,7 @@ export const FretboardControls = ({
         <button
           className="px-4 py-2 border border-slate-700 bg-slate-200 rounded-lg"
           onClick={decrementFret}
-          disabled={fretboard.startAtFret === FIRST_FRET}
+          disabled={fretboard.startAtFret === FIRST_FRET_NUM}
         >
           ↑
         </button>
@@ -40,7 +40,7 @@ export const FretboardControls = ({
         <button
           className="px-4 py-2 border border-slate-700 bg-slate-200 rounded-lg"
           onClick={incrementFret}
-          disabled={fretboard.startAtFret === FINAL_FRET}
+          disabled={fretboard.startAtFret === FINAL_FRET_NUM}
         >
           ↓
         </button>

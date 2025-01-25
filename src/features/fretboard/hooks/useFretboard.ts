@@ -1,9 +1,10 @@
-import { useState } from "react";
 import {
+  Fret,
   Fretboard,
   FretboardState,
+  FretboardString,
   FretNumber,
-  FrettedStringPositions,
+  FretPositions,
   StringNumber,
   Tuning,
 } from "../types";
@@ -12,14 +13,13 @@ import { generateStrings } from "../generators/string.generator";
 import {
   INITIAL_NUM_OF_FRETS,
   INITIAL_TUNING,
-  SHIFT_START_AT_FRET,
+  SHIFT_START_AT_FRET_NUM,
 } from "../constants";
-import { getActiveFrets } from "../utils/fretboard.utils";
 
 export const useFretboard = (
   tuning: Tuning = INITIAL_TUNING,
   numOfFrets: FretNumber = INITIAL_NUM_OF_FRETS,
-  startAtFret: FretNumber = SHIFT_START_AT_FRET
+  startAtFret: FretNumber = SHIFT_START_AT_FRET_NUM
 ) => {
   const initialFretboard = generateFretboard(tuning, numOfFrets, startAtFret);
   const generateInitialState = (): FretboardState => ({
@@ -44,7 +44,7 @@ export const useFretboard = (
       const relativePosition = highlightedFretNumber - fretboard.startAtFret;
 
       return startAtFret + relativePosition;
-    }) as FrettedStringPositions;
+    }) as FretPositions;
 
     setFretboardState((prev) => ({
       ...prev,
@@ -95,29 +95,31 @@ export const useFretboard = (
         return { ...string, frets: updatedFrets };
       });
 
-    const frettedPositions: FrettedStringPositions = generateStrings(
+    const getLastHighlightedFret = (string: FretboardString) => {
+      return string.frets
+        .filter((fret) => fret.isHighlighted)
+        .reduce(
+          (last, current) =>
+            current.fretNumber > last.fretNumber ? current : last,
+          {} as Fret
+        );
+    };
+
+    const frettedPositions2: FretPositions = generateStrings(
       numOfFrets,
       startAtFret,
       [1, 2, 0, 0, 0, 0]
-    );
+    ).map(
+      (string) => getLastHighlightedFret(string).fretNumber ?? 0
+    ) as FretPositions;
 
-    // .flatMap((string) => {
-    //   console.log(string);
-    //   return string.frets
-    //     .slice(0, 6)
-    //     .map((fret) =>
-    //       fret.isHighlighted
-    //         ? string.frets.find((fret) => fret.isHighlighted)?.fretNumber
-    //         : 0
-    //     );
-    // }) as FrettedStringPositions;
-
-    const fretboard = generateFretboard(
-      tuning,
+    const frettedPositions: FretPositions = generateStrings(
       numOfFrets,
       startAtFret,
-      [0, 1, 2, 3, 4, 5]
-    );
+      [1, 2, 0, 0, 0, 0]
+    ).map((string) => getLastHighlightedFret(string).fretNumber ?? 0) as FretPositions ;
+
+    const fretboard = generateFretboard(tuning, numOfFrets, startAtFret);
 
     console.log("frettedPositions", frettedPositions);
     return {
