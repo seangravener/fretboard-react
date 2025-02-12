@@ -41,12 +41,19 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
       }
 
       case "SET_START_FRET": {
-        setStartAtFret(action.payload);
+        const updatedFretboard = setStartAtFret(action.payload);
+
         return {
           ...fretboardState,
+          fretboard: {
+            ...updatedFretboard.fretboard,
+            startAtFret: action.payload
+          },
           computed: {
             currentNotes: getCurrentNotes(fretboard),
+            // @TODO rename to getCurrentChord()
             currentChord: identifyChord(fretboard.strings),
+            // @TODO rename to frettedFrets
             activeFrets: getFrettedFrets(fretboard),
           },
         };

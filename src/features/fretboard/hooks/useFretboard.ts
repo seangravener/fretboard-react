@@ -5,6 +5,7 @@ import {
   FretboardString,
   FretNumber,
   FretPositions,
+  FrettedFrets,
   StringNumber,
   Tuning,
 } from "../types";
@@ -29,34 +30,35 @@ export const useFretboard = (
     computed: {
       currentNotes: [],
       currentChord: null,
-      activeFrets: [],
+      activeFrets: [] as unknown as FrettedFrets,
     },
   });
 
   const setStartAtFret = (startAtFret: FretNumber) => {
-    const highlightedFretPositions = fretboard.strings.map((string) => {
+    const currentFretboard = generateFretboard(tuning, numOfFrets, startAtFret);
+    const highlightedFretPositions = currentFretboard.strings.map((string) => {
       const highlightedFret = string.frets.find((fret) => fret.isHighlighted);
       if (highlightedFret?.fretNumber === 0) return 0; // Skip open strings
 
       const highlightedFretNumber = highlightedFret
         ? highlightedFret.fretNumber
         : 0;
-      const relativePosition = highlightedFretNumber - fretboard.startAtFret;
+      const relativePosition =
+        highlightedFretNumber - currentFretboard.startAtFret;
 
       return startAtFret + relativePosition;
     }) as FretPositions;
 
-    setFretboardState((prev) => ({
-      ...prev,
+    return {
       fretboard: generateFretboard(
         tuning,
         numOfFrets,
         startAtFret,
         highlightedFretPositions
       ),
-    }));
+    };
 
-    // @TODO Depricate
+    // [ ] Depricate
     // setFretboard(() => ({
     //   ...generateFretboard(
     //     tuning,
@@ -68,11 +70,11 @@ export const useFretboard = (
   };
 
   const highlightFret = (
-    // @TODO refactor with FretboardPositions[] as param
+    // [ ] @TODO refactor with FretboardPositions[] as param
     stringNumber: StringNumber,
     fretNumber: FretNumber
   ) => {
-    // @TODO replace with generateStrings() with FretboardPositions set
+    // [ ] @TODO replace with generateStrings() with FretboardPositions set
     const updatedStrings = ({ fretboard }: { fretboard: Fretboard }) =>
       fretboard.strings.map((string) => {
         if (string.stringNumber !== stringNumber) return string;
@@ -105,7 +107,15 @@ export const useFretboard = (
         );
     };
 
-    const frettedPositions2: FretPositions = generateStrings(
+    // const frettedPositions2: FretPositions = generateStrings(
+    //   numOfFrets,
+    //   startAtFret,
+    //   [1, 2, 0, 0, 0, 0]
+    // ).map(
+    //   (string) => getLastHighlightedFret(string).fretNumber ?? 0
+    // ) as FretPositions;
+
+    const frettedPositions: FretPositions = generateStrings(
       numOfFrets,
       startAtFret,
       [1, 2, 0, 0, 0, 0]
@@ -113,15 +123,15 @@ export const useFretboard = (
       (string) => getLastHighlightedFret(string).fretNumber ?? 0
     ) as FretPositions;
 
-    const frettedPositions: FretPositions = generateStrings(
+    const fretboard = generateFretboard(
+      tuning,
       numOfFrets,
       startAtFret,
-      [1, 2, 0, 0, 0, 0]
-    ).map((string) => getLastHighlightedFret(string).fretNumber ?? 0) as FretPositions ;
-
-    const fretboard = generateFretboard(tuning, numOfFrets, startAtFret);
+      frettedPositions
+    );
 
     console.log("frettedPositions", frettedPositions);
+
     return {
       fretboard: {
         ...fretboard,
