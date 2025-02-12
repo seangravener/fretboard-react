@@ -3,13 +3,13 @@
 // render div.chord-display; h3; div.chord-name; div.chord-notes
 
 import { useFretboardContext } from "../../hooks/useFretboardContext";
-import { identifyChord } from "../../utils/chord.utils";
+import { getCurrentChord } from "../../utils/chord.utils";
 
 export const ChordDisplay = () => {
   const {
     fretboardState: { fretboard, computed },
   } = useFretboardContext();
-  const chordName = identifyChord(fretboard.strings);
+  const chordName = getCurrentChord(fretboard.strings);
 
   return (
     <div className="chord-display">

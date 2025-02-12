@@ -2,7 +2,7 @@ import { ReactNode, useMemo, useReducer } from "react";
 import { useFretboard } from "../hooks/useFretboard";
 import { INITIAL_NUM_OF_FRETS, INITIAL_TUNING } from "../constants";
 import { FretboardContext } from "./FretboardContext";
-import { identifyChord } from "../utils/chord.utils";
+import { getCurrentChord } from "../utils/chord.utils";
 import { getFrettedFrets, getCurrentNotes } from "../utils/fretboard.utils";
 
 import {
@@ -26,6 +26,7 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           action.payload.string,
           action.payload.fret
         );
+        // [ ] Fix state persistence
         const { fretboard } = updatedFretboard;
         console.log(updatedFretboard);
 
@@ -34,8 +35,8 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           fretboard: { ...fretboard },
           computed: {
             currentNotes: getCurrentNotes(fretboard),
-            currentChord: identifyChord(fretboard.strings),
-            activeFrets: getFrettedFrets(fretboard),
+            currentChord: getCurrentChord(fretboard.strings),
+            frettedFrets: getFrettedFrets(fretboard),
           },
         };
       }
@@ -51,10 +52,8 @@ export const FretboardProvider = ({ children }: { children: ReactNode }) => {
           },
           computed: {
             currentNotes: getCurrentNotes(fretboard),
-            // @TODO rename to getCurrentChord()
-            currentChord: identifyChord(fretboard.strings),
-            // @TODO rename to frettedFrets
-            activeFrets: getFrettedFrets(fretboard),
+            currentChord: getCurrentChord(fretboard.strings),
+            frettedFrets: getFrettedFrets(fretboard),
           },
         };
       }

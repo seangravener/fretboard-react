@@ -30,7 +30,7 @@ export const useFretboard = (
     computed: {
       currentNotes: [],
       currentChord: null,
-      activeFrets: [] as unknown as FrettedFrets,
+      frettedFrets: [] as unknown as FrettedFrets,
     },
   });
 
@@ -57,20 +57,10 @@ export const useFretboard = (
         highlightedFretPositions
       ),
     };
-
-    // [ ] Depricate
-    // setFretboard(() => ({
-    //   ...generateFretboard(
-    //     tuning,
-    //     numOfFrets,
-    //     startAtFret,
-    //     highlightedFretPositions
-    //   ),
-    // }));
   };
 
   const highlightFret = (
-    // [ ] @TODO refactor with FretboardPositions[] as param
+    // @TODO refactor with FretboardPositions[] as param
     stringNumber: StringNumber,
     fretNumber: FretNumber
   ) => {
@@ -107,14 +97,7 @@ export const useFretboard = (
         );
     };
 
-    // const frettedPositions2: FretPositions = generateStrings(
-    //   numOfFrets,
-    //   startAtFret,
-    //   [1, 2, 0, 0, 0, 0]
-    // ).map(
-    //   (string) => getLastHighlightedFret(string).fretNumber ?? 0
-    // ) as FretPositions;
-
+    // [ ] Reduce redundant call to generateStrins() 
     const frettedPositions: FretPositions = generateStrings(
       numOfFrets,
       startAtFret,
@@ -127,7 +110,7 @@ export const useFretboard = (
       tuning,
       numOfFrets,
       startAtFret,
-      frettedPositions
+      [1, 2, 0, 0, 0, 3]
     );
 
     console.log("frettedPositions", frettedPositions);
@@ -137,7 +120,7 @@ export const useFretboard = (
         ...fretboard,
         strings: updatedStrings({ fretboard }),
         // strings: generateStrings(
-        //   stringNumber,
+        //   // stringNumber,
         //   numOfFrets,
         //   startAtFret,
         //   frettedPositions

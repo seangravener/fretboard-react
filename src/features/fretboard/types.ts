@@ -67,7 +67,7 @@ export type FretboardState = {
   computed: {
     currentNotes: ChromaticNote[];
     currentChord: Chord | string | null;
-    activeFrets: FrettedFrets;
+    frettedFrets: FrettedFrets;
   };
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
   setStartAtFret: (fretNumber: FretNumber) => void;

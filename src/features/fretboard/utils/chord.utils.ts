@@ -82,7 +82,7 @@ const identifyByIntervals = (strings: FretboardString[]): string => {
   return `${highlightedNotes[0]}${matchedPattern.name}`;
 };
 
-export const identifyChord = (strings: FretboardString[]): string => {
+export const getCurrentChord = (strings: FretboardString[]): string => {
   const guitarShape = identifyGuitarShape(strings);
 
   if (guitarShape) return guitarShape;
