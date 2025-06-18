@@ -6,9 +6,12 @@ export type FretNumber = (typeof FRET_NUMBERS)[number];
 export type StringNumber = (typeof STRING_NUMBERS)[number];
 
 export type Fretboard = {
-  // numOfFrets: FretNumber;
+  tuning: Tuning;
   startAtFret: FretNumber;
+  numOfFrets: FretNumber;
   strings: FretboardString[];
+  totalFrets: number;
+  highlightedFrets: FretPositions;
 };
 
 export type Fret = {
@@ -16,6 +19,13 @@ export type Fret = {
   isHighlighted: boolean;
   note: ChromaticNote;
 };
+
+export type FrettedFrets = [Fret, Fret, Fret, Fret, Fret, Fret];
+
+export interface StringFretPair {
+  stringNumber: StringNumber;
+  fretNumber: FretNumber;
+}
 
 export type FretboardString = {
   stringNumber: StringNumber;
@@ -37,13 +47,13 @@ export type FretboardContextType = {
   currentChord: Chord | string | null;
 };
 
-export type FrettedStringPositions = [
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?,
-  FretNumber?
+export type FretPositions = [
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber,
+  FretNumber
 ];
 
 export type FretboardDisplayOptions = { displayNotes?: boolean };

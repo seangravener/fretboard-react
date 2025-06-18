@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   Fretboard,
   FretNumber,
-  FrettedStringPositions,
+  FretPositions,
   StringNumber,
   Tuning,
 } from "../types";
@@ -28,7 +28,7 @@ export const useFretboard = (
       const relativePosition = highlightedFretNumber - fretboard.startAtFret;
 
       return startAtFret + relativePosition;
-    }) as FrettedStringPositions;
+    }) as FretPositions;
 
     setFretboard(() => ({
       ...generateFretboard(

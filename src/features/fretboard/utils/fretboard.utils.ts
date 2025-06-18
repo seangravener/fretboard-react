@@ -5,6 +5,8 @@ import {
   Fretboard,
   FretboardString,
   FretNumber,
+  FretPositions,
+  FrettedFrets,
 } from "../types";
 
 export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
@@ -13,7 +15,7 @@ export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
   );
 };
 
-export const getActiveFrets = (fretboard: Fretboard): Fret[] => {
+export const getFrettedFrets = (fretboard: Fretboard): Fret[] => {
   const inactiveFret: Fret = {
     fretNumber: 0 as FretNumber,
     isHighlighted: false,
@@ -50,3 +52,17 @@ export const isStringOpen = (string: FretboardString): boolean => {
 
 export const getStringIndicator = (string: FretboardString): "O" | "X" =>
   isStringOpen(string) ? "O" : "X";
+
+export const getFrettedFretPositions = (
+  frets: FrettedFrets,
+  startAtFret: FretNumber = 0
+): FretPositions => {
+  const positions = frets.map(fret => {
+    const absolutePosition = fret.fretNumber;
+    const viewportPosition = startAtFret + absolutePosition;
+    
+    return viewportPosition as FretNumber;
+  }) as FretPositions;
+
+  return positions;
+};
