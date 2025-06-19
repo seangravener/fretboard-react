@@ -1,4 +1,4 @@
-import { CHROMATIC_SCALE } from "../constants";
+import { CHROMATIC_SCALE, INACTIVE_FRET } from "../constants";
 import {
   ChromaticNote,
   Fret,
@@ -16,17 +16,22 @@ export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
 };
 
 export const getFrettedFrets = (fretboard: Fretboard): Fret[] => {
-  const inactiveFret: Fret = {
-    fretNumber: 0 as FretNumber,
-    isHighlighted: false,
-    note: "",
-  };
-
-  return fretboard.strings.map(
-    (string) =>
-      string.frets.filter((fret) => fret.isHighlighted).at(-1) ?? inactiveFret
-  );
+  const result: Fret[] = [];
+  
+  for (let i = 0; i < 6; i++) {
+    if (i < fretboard.strings.length) {
+      const string = fretboard.strings[i];
+      const lastHighlightedFret = string.frets.filter((fret) => fret.isHighlighted).at(-1);
+      result.push(lastHighlightedFret ?? INACTIVE_FRET);
+    } else {
+      result.push(INACTIVE_FRET);
+    }
+  }
+  
+  return result;
 };
+
+
 
 export const calcNoteAtFret = (
   openNote: string,
