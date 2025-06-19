@@ -1,7 +1,3 @@
-// get fretboard and current notes from createContext
-// use identifyCord() to get chordName
-// render div.chord-display; h3; div.chord-name; div.chord-notes
-
 import { useFretboardContext } from "../../hooks/useFretboardContext";
 import { identifyChord } from "../../utils/chord.utils";
 
@@ -10,10 +6,21 @@ export const ChordDisplay = () => {
   const chordName = identifyChord(fretboard.strings);
 
   return (
-    <div className="chord-display">
-      <h3>Chord Display</h3>
-      <div className="chord-name">{chordName || 'No chord detected'}</div>
-      <div className="chord-notes">{currentNotes.join(' / ')}</div>
+    <div className="chord-display bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-lg p-6 shadow-xl">
+      <h3 className="text-2xl font-bold text-white mb-4 text-center">
+        <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          Chord
+        </span>
+        <span className="text-white"> Display</span>
+      </h3>
+      <div className="chord-name text-3xl font-bold text-center mb-3">
+        <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          {chordName || "No chord detected"}
+        </span>
+      </div>
+      <div className="chord-notes text-slate-300 text-lg text-center">
+        {currentNotes.join(" / ")}
+      </div>
     </div>
   );
 };

@@ -15,7 +15,6 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
   return (
     <>
       <CurrentChordDisplay style={{ margin: "22px" }} />
-      <ChordDisplay />
 
       <div className="flex max-w-3xl m-auto">
         <div className="fretboard-container">
@@ -27,6 +26,7 @@ export const FretboardDisplay = ({ displayNotes }: FretboardDisplayOptions) => {
             displayNotes={displayNotes}
           />
         </div>
+
         <FretboardControls
           fretboard={fretboard}
           onStartFretChange={setStartAtFret}
