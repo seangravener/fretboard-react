@@ -1,4 +1,4 @@
-import { CHROMATIC_SCALE, INACTIVE_FRET } from "../constants";
+import { CHROMATIC_SCALE, INACTIVE_FRET, MUTED_FRET_NUM } from "../constants";
 import {
   ChromaticNote,
   Fret,
@@ -31,8 +31,6 @@ export const getFrettedFrets = (fretboard: Fretboard): Fret[] => {
   return result;
 };
 
-
-
 export const calcNoteAtFret = (
   openNote: string,
   fretNumber: FretNumber
@@ -55,8 +53,17 @@ export const isStringOpen = (string: FretboardString): boolean => {
   );
 };
 
-export const getStringIndicator = (string: FretboardString): "O" | "X" =>
-  isStringOpen(string) ? "O" : "X";
+export const isStringMuted = (string: FretboardString): boolean => {
+  const highlightedFret = string.frets.find(fret => fret.isHighlighted);
+  return !highlightedFret || highlightedFret.fretNumber === MUTED_FRET_NUM;
+};
+
+export const getStringIndicator = (string: FretboardString): "O" | "X" => {
+  if (isStringMuted(string)) {
+    return "X";
+  }
+  return isStringOpen(string) ? "O" : "X";
+};
 
 export const getFrettedFretPositions = (
   frets: FrettedFrets,

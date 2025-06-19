@@ -7,69 +7,87 @@ import {
   Tuning,
 } from "../types";
 import { generateFretboard } from "../generators/fretboard.generator";
+import { generateStrings } from "../generators/string.generator";
+import { MUTED_FRET_NUM } from "../constants";
 
 export const useFretboard = (
   tuning?: Tuning,
   numOfFrets?: FretNumber,
-  startAtFret?: FretNumber
+  startAtFret?: FretNumber,
+  initialHighlightedFrets?: FretPositions
 ) => {
   const [fretboard, setFretboard] = useState<Fretboard>(() =>
-    generateFretboard(tuning, numOfFrets, startAtFret)
+    generateFretboard(tuning, numOfFrets, startAtFret, initialHighlightedFrets)
   );
 
-  const setStartAtFret = (startAtFret: FretNumber) => {
-    const highlightedFretPositions = fretboard.strings.map((string) => {
+  const setStartAtFret = (newStartAtFret: FretNumber) => {
+    const currentHighlightedFrets = fretboard.strings.map((string) => {
       const highlightedFret = string.frets.find((fret) => fret.isHighlighted);
-      if (highlightedFret?.fretNumber === 0) return 0;
+      
+      if (!highlightedFret || highlightedFret.fretNumber === 0) {
+        return highlightedFret?.fretNumber ?? 0;
+      }
 
-      const highlightedFretNumber = highlightedFret
-        ? highlightedFret.fretNumber
-        : 0;
-      const relativePosition = highlightedFretNumber - fretboard.startAtFret;
-
-      return startAtFret + relativePosition;
+      const relativePosition = highlightedFret.fretNumber - fretboard.startAtFret;
+      
+      return newStartAtFret + relativePosition;
     }) as FretPositions;
 
-    setFretboard(() => ({
-      ...generateFretboard(
-        tuning,
-        numOfFrets,
-        startAtFret,
-        highlightedFretPositions
+    setFretboard(
+      generateFretboard(
+        fretboard.tuning,
+        fretboard.numOfFrets,
+        newStartAtFret,
+        currentHighlightedFrets
+      )
+    );
+  };
+
+  const highlightFret = (
+  stringNumber: StringNumber,
+  fretNumber: FretNumber
+) => {
+  const newHighlightedFrets = fretboard.highlightedFrets.map((currentFret, index) => {
+    const currentStringNumber = (index + 1) as StringNumber;
+    
+    if (currentStringNumber !== stringNumber) {
+      return currentFret;
+    }
+
+    if (fretNumber === MUTED_FRET_NUM) {
+      return MUTED_FRET_NUM;
+    }
+    
+    return currentFret === fretNumber ? MUTED_FRET_NUM : fretNumber;
+  }) as FretPositions;
+
+  setFretboard((prev) => ({
+    ...prev,
+    highlightedFrets: newHighlightedFrets,
+    strings: generateStrings(
+      prev.numOfFrets,
+      prev.startAtFret,
+      newHighlightedFrets
+    ),
+  }));
+};
+
+  const setHighlightedFrets = (fretPositions: FretPositions) => {
+    setFretboard((prev) => ({
+      ...prev,
+      highlightedFrets: fretPositions,
+      strings: generateStrings(
+        prev.numOfFrets,
+        prev.startAtFret,
+        fretPositions
       ),
     }));
   };
-  // @TODO refactor with FretboardPositions[] as an optional input
-  const highlightFret = (
-    stringNumber: StringNumber,
-    fretNumber: FretNumber
-  ) => {
-    setFretboard((prev) => ({
-      ...prev,
 
-      // @TODO replace with generateStrings() with FretboardPositions set
-      strings: prev.strings.map((string) => {
-        if (string.stringNumber !== stringNumber) return string;
-
-        const updatedFrets = string.frets.map((fret) => ({
-          ...fret,
-          isHighlighted:
-            fret.fretNumber === fretNumber ? !fret.isHighlighted : false,
-        }));
-
-        const hasNoHighlightedFrets = !updatedFrets.some(
-          (fret) => fret.isHighlighted
-        );
-
-        // @TODO Toggle string open/muted state back to previous, unfretted state
-        if (hasNoHighlightedFrets && fretNumber !== 0) {
-          updatedFrets[0].isHighlighted = !string.frets[0].isHighlighted;
-        }
-
-        return { ...string, frets: updatedFrets };
-      }),
-    }));
+  return { 
+    fretboard, 
+    highlightFret, 
+    setStartAtFret, 
+    setHighlightedFrets 
   };
-
-  return { fretboard, highlightFret, setStartAtFret };
 };

@@ -33,7 +33,7 @@ export const generateStrings = (
   highlightedFrets: FretPositions
 ): FretboardString[] => {
   return INITIAL_TUNING.map((openNote: ChromaticNote, index) => {
-    const highlightedFret = highlightedFrets[index] ?? MUTED_FRET_NUM;
+    const highlightedFret = highlightedFrets[index] ?? (0 as FretNumber);
 
     return generateString(
       (index + 1) as StringNumber,
