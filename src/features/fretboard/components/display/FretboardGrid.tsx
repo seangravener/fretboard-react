@@ -6,7 +6,7 @@ type FretboardStringsProps = {
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
-export const FretboardStrings = ({
+export const FretboardGrid = ({
   fretboard,
   displayNotes,
   onFretClick,

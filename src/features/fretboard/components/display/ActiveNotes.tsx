@@ -1,11 +1,11 @@
-import { useFretboardContext } from "../../hooks/useFretboardContext";
+import { useFretboardService } from "../../hooks/useFretboardService";
 
 type CurrentChordDisplayProps = {
   style: React.CSSProperties;
 };
 
-export const CurrentChordDisplay = ({ style }: CurrentChordDisplayProps) => {
-  const { currentNotes } = useFretboardContext();
+export const ActiveNotes = ({ style }: CurrentChordDisplayProps) => {
+  const { currentNotes } = useFretboardService();
 
   return (
     <div style={style}>

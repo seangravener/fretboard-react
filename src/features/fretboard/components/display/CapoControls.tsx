@@ -1,27 +1,25 @@
 import { FINAL_FRET_NUM, FIRST_FRET_NUM } from "../../constants";
-import { Fretboard, FretNumber } from "../../types";
-import { ChordDisplay } from "./ChordDisplay";
+import { FretNumber } from "../../types";
+import { ChordViewer } from "./ChordViewer";
+import { useFretboardService } from "../../hooks/useFretboardService";
 
 type Props = {
-  fretboard: Fretboard;
-  onStartFretChange: (fret: FretNumber) => void;
   onDisplayNotesToggle: () => void;
   displayNotes?: boolean;
 };
 
-export const FretboardControls = ({
-  fretboard,
-  onStartFretChange,
+export const CapoControls = ({
   onDisplayNotesToggle,
   displayNotes = false,
 }: Props) => {
+  const { fretboard, setStartAtFret } = useFretboardService();
   const incrementFret = () => {
-    onStartFretChange((fretboard.startAtFret + 1) as FretNumber);
+    setStartAtFret((fretboard.startAtFret + 1) as FretNumber);
   };
 
   const decrementFret = () => {
     if (fretboard.startAtFret > FIRST_FRET_NUM) {
-      onStartFretChange((fretboard.startAtFret - 1) as FretNumber);
+      setStartAtFret((fretboard.startAtFret - 1) as FretNumber);
     }
   };
 
@@ -29,7 +27,7 @@ export const FretboardControls = ({
     <div>
       <div className="flex flex-col">
         <div className="mb-4">
-          <ChordDisplay />
+          <ChordViewer />
         </div>
         <div
           className="fretboard-controls bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-lg p-6 shadow-xl"

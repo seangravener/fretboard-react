@@ -1,4 +1,4 @@
-export const FretboardNoteLabels = () => {
+export const StringLabels = () => {
   return (
     <div className="note-labels">
       {["E", "A", "D", "G", "B", "e"].map((note) => (

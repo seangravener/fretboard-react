@@ -1,9 +1,7 @@
-import { useFretboardContext } from "../../hooks/useFretboardContext";
-import { identifyChord } from "../../utils/chord.utils";
+import { useFretboardService } from "../../hooks/useFretboardService";
 
-export const ChordDisplay = () => {
-  const { fretboard, currentNotes } = useFretboardContext();
-  const chordName = identifyChord(fretboard.strings);
+export const ChordViewer = () => {
+  const { currentNotes, currentChord } = useFretboardService();
 
   return (
     <div className="chord-display bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-lg p-6 shadow-xl">
@@ -15,7 +13,7 @@ export const ChordDisplay = () => {
       </h3>
       <div className="chord-name text-3xl font-bold text-center mb-3">
         <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-          {chordName || "No chord detected"}
+          {currentChord ?? "No chord detected"}
         </span>
       </div>
       <div className="chord-notes text-slate-300 text-lg text-center">

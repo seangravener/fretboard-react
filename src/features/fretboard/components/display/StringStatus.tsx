@@ -7,7 +7,7 @@ type Props = {
   onFretClick?: (stringNum: StringNumber, fretNum: FretNumber) => void;
 };
 
-export const StringIndicators = ({ fretboard, onFretClick }: Props) => {
+export const StringStatus = ({ fretboard, onFretClick }: Props) => {
   const handleStringIndicatorClick = (stringNumber: StringNumber) => {
     if (!onFretClick) return;
 
