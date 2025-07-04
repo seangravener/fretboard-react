@@ -1,5 +1,5 @@
 import { useFretboardContext } from "./useFretboardContext";
-import { FretNumber, FretPositions, StringNumber } from "../types";
+import { FretNumber, FretPositions, StringNumber } from "../../types";
 
 export const useFretboardService = () => {
   const {
@@ -17,15 +17,18 @@ export const useFretboardService = () => {
   };
 
   const clearHighlights = () => {
-    const clearedFrets = Array(fretboard.tuning.length).fill(0) as FretPositions;
+    const clearedFrets = Array(fretboard.tuning.length).fill(
+      0
+    ) as FretPositions;
     setHighlightedFrets(clearedFrets);
   };
 
   const shiftFretboard = (direction: "up" | "down") => {
-    const newStartAtFret = direction === "up" 
-      ? Math.min(fretboard.startAtFret + 1, 12)
-      : Math.max(fretboard.startAtFret - 1, 0);
-    
+    const newStartAtFret =
+      direction === "up"
+        ? Math.min(fretboard.startAtFret + 1, 12)
+        : Math.max(fretboard.startAtFret - 1, 0);
+
     setStartAtFret(newStartAtFret as FretNumber);
   };
 

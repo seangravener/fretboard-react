@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FretboardContext } from "../contexts/FretboardContext";
-import { FretboardContextType } from "../types";
+import { FretboardContext } from "../FretboardContext";
+import { FretboardContextType } from "../../types";
 
 export const useFretboardContext = () => {
   const context = useContext<FretboardContextType | null>(FretboardContext);

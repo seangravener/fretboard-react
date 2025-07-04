@@ -1,4 +1,4 @@
-import { useFretboardService } from "../../hooks/useFretboardService";
+import { useFretboardService } from "../../contexts/hooks/useFretboardService";
 
 export const ChordViewer = () => {
   const { currentNotes, currentChord } = useFretboardService();

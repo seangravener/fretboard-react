@@ -11,13 +11,13 @@ export const FretboardGrid = ({
   displayNotes,
   onFretClick,
 }: FretboardStringsProps) => (
-  <div className="fretboard">
+  <div className="fretboard-display">
     {fretboard.strings.map((string) => (
-      <div className="string" key={string.stringNumber}>
+      <div className="fretboard-string" key={string.stringNumber}>
         {string.frets.slice(1).map((fret) => (
           <button
             key={`${fret.note}-${fret.fretNumber}`}
-            className={`fret ${fret.isHighlighted ? "active" : ""}`}
+            className={`fretboard-fret ${fret.isHighlighted ? "fretboard-active" : ""}`}
             aria-label="Fret"
             onClick={() => onFretClick?.(string.stringNumber, fret.fretNumber)}
           >

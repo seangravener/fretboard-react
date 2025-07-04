@@ -1,7 +1,7 @@
 import { FINAL_FRET_NUM, FIRST_FRET_NUM } from "../../constants";
 import { FretNumber } from "../../types";
 import { ChordViewer } from "./ChordViewer";
-import { useFretboardService } from "../../hooks/useFretboardService";
+import { useFretboardService } from "../../contexts/hooks/useFretboardService";
 
 type Props = {
   onDisplayNotesToggle: () => void;

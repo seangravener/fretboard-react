@@ -44,11 +44,11 @@ export const StringStatus = ({ fretboard, onFretClick }: Props) => {
   };
 
   return (
-    <div className="string-indicators" aria-label="String Indicators">
+    <div className="fretboard-string-indicators" aria-label="String Indicators">
       {fretboard.strings.map((string) => (
         <button
           key={`string-indicator-${string.stringNumber}`}
-          className="string-indicator"
+          className="fretboard-string-indicator"
           data-string-number={string.stringNumber}
           onClick={() => handleStringIndicatorClick(string.stringNumber)}
           title={getStringTitle(string)}

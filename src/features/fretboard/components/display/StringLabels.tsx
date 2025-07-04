@@ -1,8 +1,8 @@
 export const StringLabels = () => {
   return (
-    <div className="note-labels">
+    <div className="fretboard-note-labels">
       {["E", "A", "D", "G", "B", "e"].map((note) => (
-        <div className="note-label" key={note}>
+        <div className="fretboard-note-label" key={note}>
           <span>{note}</span>
         </div>
       ))}

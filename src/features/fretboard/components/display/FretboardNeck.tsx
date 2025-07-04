@@ -3,9 +3,9 @@ import { ActiveNotes } from "./ActiveNotes";
 import { FretboardGrid } from "./FretboardGrid";
 import { StringLabels } from "./StringLabels";
 import { StringStatus } from "./StringStatus";
-import { useFretboardService } from "../../hooks/useFretboardService";
+import { useFretboardService } from "../../contexts/hooks/useFretboardService";
 
-import "./FretboardDisplay.css";
+import "./FretboardDisplay.scss";
 import { CapoControls } from "./CapoControls";
 
 export const FretboardNeck = ({ displayNotes }: FretboardDisplayOptions) => {
@@ -26,9 +26,7 @@ export const FretboardNeck = ({ displayNotes }: FretboardDisplayOptions) => {
           />
         </div>
 
-        <CapoControls
-          onDisplayNotesToggle={() => {}}
-        />
+        <CapoControls onDisplayNotesToggle={() => {}} />
       </div>
 
       <button onClick={() => setStartAtFret(3)}>Change Fret Start 3</button>
