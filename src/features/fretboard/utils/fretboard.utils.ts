@@ -15,7 +15,7 @@ export const getCurrentNotes = (fretboard: Fretboard): ChromaticNote[] => {
   );
 };
 
-export const getFrettedFrets = (fretboard: Fretboard): Fret[] => {
+export const getFrettedFrets = (fretboard: Fretboard): FrettedFrets => {
   const result: Fret[] = [];
   
   for (let i = 0; i < 6; i++) {
@@ -28,7 +28,7 @@ export const getFrettedFrets = (fretboard: Fretboard): Fret[] => {
     }
   }
   
-  return result;
+  return result as FrettedFrets;
 };
 
 export const calcNoteAtFret = (

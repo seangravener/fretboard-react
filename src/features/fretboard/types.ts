@@ -43,8 +43,10 @@ export type FretboardContextType = {
   fretboard: Fretboard;
   highlightFret: (stringNumber: StringNumber, fretNumber: FretNumber) => void;
   setStartAtFret: (fretNumber: FretNumber) => void;
+  setHighlightedFrets: (fretPositions: FretPositions) => void;
   currentNotes: ChromaticNote[];
-  currentChord: Chord | string | null;
+  currentChord: string;
+  activeFrets: FrettedFrets;
 };
 
 export type FretPositions = [
